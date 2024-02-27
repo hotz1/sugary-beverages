@@ -1,26 +1,22 @@
 ---
-title: "main"
-format: pdf
-editor: visual
+title: 
+  "Investigating the effect of price discounts on sales of zero-calorie beverages"
+format: 
+  pdf
+editor: 
+  visual
 ---
 
-## Quarto
+# Introduction
 
-Quarto enables you to weave together content and executable code into a finished document. To learn more about Quarto see <https://quarto.org>.
+# Data Description and Summaries
 
-## Running Code
+# Exploratory Analysis
 
-When you click the **Render** button a document will be generated that includes both content and the output of embedded code. You can embed code like this:
+# Formal Analysis
 
-```{r}
-1 + 1
-```
+# Conclusions
 
-You can add options to executable code like this
+# References
 
-```{r}
-#| echo: false
-2 * 2
-```
-
-The `echo: false` option disables the printing of code (only output is displayed).
+# Statistical Appendix
