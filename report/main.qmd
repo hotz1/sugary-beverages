@@ -33,6 +33,11 @@ Additionally, summary statistics such as means can be calculated for different v
 
 # Formal Analysis
 
+In this study, an effective treatment will increase the proportion of daily sales that come from zero-calorie beverages among sales that are either zero-calorie beverages or sugary beverages. This proportion increases when an intervention leads to relatively more sales of zero-calorie beverages than of sugary beverages. This avoids the need to perform two separate analyses (one for zero-calorie and another one for sugary beverages) and avoids variation due to sales of other unrelated products.
+
+In light of the above reasoning, the recommended primary analysis is based on a linear regression model. The outcome is defined as the counts of zero-calorie beverage sales divided by the total sales of zero-calorie or sugary beverages (i.e. the proportion of zero-calorie beverage sales). The main variable of interest are intervention indicators, treating the baseline periods as the reference. Covariates in the model include the site, the days of the week, and the study day. Treated as a continuous variable, study day may be modelled non-linearly using splines. Finally, to assess whether intervention effects differ by site, we recommend testing interaction effects between sites and intervention groups.
+
+
 # Conclusions
 
 # References
