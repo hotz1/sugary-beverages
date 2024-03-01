@@ -13,14 +13,23 @@ csl: ../docs/elsevier-vancouver.csl
 
 Strong evidence has linked habitual intake of sugar-sweetened beverages (SSBs) with weight gain and a higher risk of type 2 diabetes mellitus, cardiovascular diseases, and even cancer @Malik2022. Pathological mechanisms include additional liquid calories in the diet, an exacerbated increase in blood insulin levels, and possibly the activation of a reward system related to sugar addiction. Multiple policy interventions to inhibit consumption of SSBs have been proposed @Krieger2021. These include taxation of SSBs, limitation of access to SSBs in schools and healthcare facilities, and package labelling systems to provide the necessary information for consumers who favour a healthier diet. As new potential interventions arise, there is a growing need for strong evidence of their efficacy.
 
-In this context, the present study aims to evaluate the efficacy of five interventions intended to shift consumer behaviour toward zero-calorie beverages. Three information-based interventions were implemented as posters, flyers, and signs providing information about caloric content in sugared beverages, the amount of time
-one would need to spend on a treadmill to burn such calories, or both. Two financial interventions were implemented as either a 10% discount on zero-calorie beverages or the same discount plus an informative message about the reason for the discount. Over 30 weeks, investigators alternated interventions in the cafeterias and convenience shops from three different sites (hospitals). Baseline and washout periods were implemented between intervention periods as well. Outcomes include daily sales of bottled sugared beverages and zero-calorie beverages.
+In this context, the present study aims to evaluate the efficacy of five interventions intended to shift consumer behaviour toward zero-calorie beverages. Three information-based interventions were implemented as posters, flyers, and signs providing information about caloric content in sugared beverages, the amount of time one would need to spend on a treadmill to burn such calories, or both. Two financial interventions were implemented as either a 10% discount on zero-calorie beverages or the same discount plus an informative message about the reason for the discount. Over 30 weeks, investigators alternated interventions in the cafeterias and convenience shops from three different sites (hospitals). Baseline and washout periods were implemented between intervention periods as well. Outcomes include daily sales of bottled sugared beverages and zero-calorie beverages.
 
 Given the above study design, the main statistical question is whether the average daily sales of bottled sugared beverages and zero-calorie beverages differ between intervention groups. Other statistical questions include whether there is a significant interaction between intervention and site effects, and whether groups with combined interventions had stronger effects as compared to isolated interventions (e.g., discount+messaging versus discount alone).
 
 # Data Description and Summaries
 
 # Exploratory Analysis
+
+Exploratory data analysis can visualize relationships among variables, and informally give some insight on what results can be expected. Based on the data and statistical questions, we recommend the following figures and tables:
+
+1.  Side-by-side boxplots of **\[ZERO SUGAR RESPONSE\]** by site can help identify if there are differences between sites
+
+2.  Plots of **\[ZERO SUGAR RESPONSE\]** over time, stratified by other variables, such as intervention can identify and trends or patterns or differences between interventions.
+
+3.  A scatterplot of zero-sugar vs sugary drink sales be used to investigate what kind of relationship they have.
+
+Additionally, summary statistics such as means can be calculated for different variables, such as days of the week to give a numeric measure that can be compared.
 
 # Formal Analysis
 
