@@ -27,7 +27,7 @@ Every observation in the data includes the following variables: the day of the e
 
 The daily sales metrics include the number of bottled zero-calorie and sweetened beverages sold per site. These are each non-negative integer-valued variables. The data also includes the total number of beverages sold per site, which is another non-negative integer value.
 
-Some observations additionally include the sales of 100% juice, orange juice, and sports drinks, which are recorded as integers. However, these counts are only consistently recorded at Site A, and they are scarcely recorded for Sites B and C.
+Some observations additionally include the sales of 100% juice, orange juice, and sports drinks, which are recorded as integers. However, these counts are only consistently recorded at Site A, and rarely recorded for Site B and C.
 
 There are nine days which are missing counts for the bottled zero-calorie and sugared beverages. Each of these nine observations contains missing data for every sales-related column. Of these nine observations, seven occur in the final week of the study at Site B, and two occur mid-study at Site C.
 
