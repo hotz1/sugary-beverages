@@ -1,17 +1,28 @@
 ---
 title: 
-  "Investigating the effect of price discounts on sales of zero-calorie beverages"
+  "Investigating the efficacy of consumer interventions on sales of zero-calorie beverages"
 format: 
-  pdf
+  pdf:
+    fontsize: 11pt
+date:
+  2024-03-01
 editor: 
   visual
-bibliography: ../docs/references.bib
-csl: ../docs/elsevier-vancouver.csl
+bibliography: 
+  ../docs/references.bib
+csl: 
+  ../docs/elsevier-vancouver.csl
 author: 
+- Christine Chuong (20124798)
 - Giuliano Cruz (79247979)
 - Joey Hotz (18461400)
-- Christine Chuong (20124798)
+include-in-header: 
+  text: |
+    \usepackage{authblk}
+    \pagenumbering{gobble}
 ---
+\newpage
+\pagenumbering{arabic}
 
 # Introduction
 
@@ -57,7 +68,11 @@ A major assumption of the above model is the correct specification of the Poisso
 
 Overall, the recommended analysis plan includes a GLMM with a Poisson distribution and a robust Poisson model. While agreement of results between the two analyses is reassuring, the robust Poisson model is preferred in case of qualitative disagreement in model results. Both analyses employ the zero-calorie beverage sales as the primary outcome with the log of the sum of zero-calorie beverage sales and sugary beverage sales as an offset. This specific offset formulation allows interpretable regression coefficients, which are large when interventions lead to more zero-calorie beverage sales relative to sugary beverage sales.
 
-# Conclusions
+# Conclusion
+
+To accurately assess the efficacy of the implemented interventions, it is best to create a statistical model which explains how these interventions affect the proportion of zero-calorie beverages. This response variable is less prone to variation than the overall sales of zero-calorie drinks, and it still provides an easily-interpretable metric for consumer purchasing behaviours. 
+
+Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to predict the proportion of zero-calorie beverage sales, and determining which effects are most relevant using the likelihood ratio. However, the Poisson GLMM assumes that the underlying data follows a Poisson distribution. If this assumption is invalid, we recommend utilizing robust Poisson regression, as the robust Poisson model does not require this distributional assumption.
 
 # References
 
