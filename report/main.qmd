@@ -22,17 +22,19 @@ include-in-header:
     \pagenumbering{gobble}
 ---
 
+{{< pagebreak >}}
+
 ```{=tex}
-\newpage
 \pagenumbering{arabic}
 ```
+
 # Introduction
 
-Strong evidence has linked habitual intake of sugar-sweetened beverages (SSBs) with weight gain and a higher risk of type 2 diabetes mellitus, cardiovascular diseases, and even cancer @Malik2022. Multiple policy interventions to inhibit consumption of SSBs have been proposed @Krieger2021. These include taxation of SSBs, limitation of access to SSBs in schools and healthcare facilities, and package labelling. As new potential interventions arise, there is a need for strong evidence of their efficacy.
+Strong evidence has linked habitual intake of sugar-sweetened beverages (SSBs) with weight gain and a higher risk of type 2 diabetes mellitus, cardiovascular diseases, and even cancer @Malik2022. Multiple policy interventions to inhibit consumption of SSBs have been proposed @Krieger2021, including taxation of SSBs, limiting access to SSBs in schools and healthcare facilities, and adding informative package labelling. As policymakers create potential interventions to limit SSB consumption, there is a need for data-driven methods of determining their efficacy.
 
-The present study aims to evaluate the efficacy of five interventions intended to shift consumer behaviour towards zero-calorie beverages. Three information-based interventions were implemented as posters, flyers, and signs. Two financial interventions were also implemented.
+This study aims to evaluate five interventions which intend to shift consumer behaviour towards zero-calorie beverages. These interventions include three information-based interventions and two financial interventions.
 
-The main statistical question is whether the intervention groups are associated with differences in the average proportion of daily sales of zero-calorie beverages. Other statistical questions include whether there is a significant interaction between intervention and site effects, and whether groups with combined interventions had stronger effects as compared to isolated interventions (e.g., discount and messaging versus discount alone).
+The main statistical question is whether these interventions are associated with differences in the average proportion of daily sales of zero-calorie beverages. Secondary questions include whether there are significant interactions between interventions and site effects, and whether a combination of interventions was more effective than the individual interventions.
 
 # Data Description and Summaries
 
@@ -71,7 +73,8 @@ geom_point()+
 geom_smooth(se=F)+
 scale_fill_continuous(guide = guide_legend()) +
 theme(legend.position="bottom")+
-labs(y="Proportion of Zero-Calorie \nand Sugary Drink Sales")
+labs(x = "Day of the Experiment",
+     y = "Proportion of Zero-Calorie \nand Sugary Drink Sales")
 ```
 
 # Formal Analysis
@@ -88,9 +91,10 @@ A major assumption of the GLMM with Poisson model is the correct specification o
 
 To accurately assess the efficacy of the implemented interventions, it is best to create a statistical model which explains how these interventions affect the proportion of zero-calorie beverages. This response variable is less prone to variation than the overall sales of zero-calorie drinks, and it still provides an easily-interpretable metric for consumer purchasing behaviours.
 
-Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to predict the proportion of zero-calorie beverage sales, and determining which effects are most relevant using likelihood ratio tests. However, the Poisson GLMM assumes that the underlying data follows a Poisson distribution. If this assumption is invalid, we recommend utilizing robust Poisson regression, as the robust Poisson model does not require this distributional assumption. Both analyses employ the zero-calorie beverage sales as the primary outcome with the log of the sum of zero-calorie beverage sales and sugary beverage sales as an offset.
+Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to predict the proportion of zero-calorie beverage sales, and determining which effects are most relevant using the likelihood ratio. However, the Poisson GLMM assumes that the underlying data follows a Poisson distribution. If this assumption is invalid, we recommend utilizing robust Poisson regression, as the robust Poisson model does not require this distributional assumption. Both analyses employ the zero-calorie beverage sales as the primary outcome with the log of the sum of zero-calorie beverage sales and sugary beverage sales as an offset.
 
-\newpage
+{{< pagebreak >}}
+
 # References
 
 ::: {#refs}
