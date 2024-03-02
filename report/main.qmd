@@ -19,6 +19,18 @@ Given the above study design, the main statistical question is whether the avera
 
 # Data Description and Summaries
 
+The data come from an interrupted quasi-experimental study on sales of sweetened and zero-calorie beverages which was conducted in three United States hospitals over a 30-week period. 
+
+Each observation represents the total daily sales of bottled beverages across multiple storefronts in a single site. Sales were recorded automatically by point of sale terminals in Site A, and manually by cashiers at Sites B and C. 
+
+The data includes the number of days since the start of the experiment, the day of the week, the site, and the intervention. The number of days is a non-negative integer, and the other three variables are categorical.
+
+The daily records include the number of bottled zero-calorie and sweetened beverages sold per site. These are each non-negative integer-valued variables. The data also includes the total number of beverages sold per site, which is another non-negative integer value.
+
+Some observations additionally report the daily sales of 100% juice, orange juice, and sports drinks as integer values. However, these counts are only consistently recorded at Site A, and they are hardly recorded for Sites B and C. 
+
+There are nine days which are missing counts for the bottled zero-calorie and sugared beverages. Each of these nine observations contains missing data for every sales-related column. Of these nine observations, seven occur in the final week of the study at Site B, and two occur mid-study at Site C. 
+
 # Exploratory Analysis
 
 Exploratory data analysis can visualize relationships among variables, and informally give some insight on what results can be expected. Based on the data and statistical questions, we recommend the following figures and tables:
