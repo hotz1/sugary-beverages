@@ -21,15 +21,15 @@ Given the above study design, the main statistical question is whether the avera
 
 # Exploratory Analysis
 
-Exploratory data analysis can visualize relationships among variables, and informally give some insight on what results can be expected. Based on the data and statistical questions, we recommend the following figures and tables:
+Exploratory data analysis can visualize relationships among variables, and informally give some insight on what results can be expected. Based on the data and statistical questions, we recommend the following figures:
 
-1.  Side-by-side boxplots of **\[ZERO SUGAR RESPONSE\]** by site can help identify if there are differences between sites
+1.  Side-by-side boxplots of zero-sugar or sugary drink sales by variables such as day of the week or site can help identify if there are differences in sales between different levels of the categorical variables.
 
-2.  Plots of **\[ZERO SUGAR RESPONSE\]** over time, stratified by other variables, such as intervention can identify and trends or patterns or differences between interventions.
+2.  Plots of the proportion of sugary and zero-sugary sales coming from zero-sugar drinks over counts can be used to observe the pattern over time. The proportion is between 0 and 1, so they can be compared regardless of the total sales. These plots can also be stratified by other variables, such as intervention to identify differences between groups.
 
-3.  A scatterplot of zero-sugar vs sugary drink sales be used to investigate what kind of relationship they have.
+3.  A scatterplot of zero-sugar vs sugary drink sales be used to investigate what kind of relationship they have and if they are highly correlated.
 
-Additionally, summary statistics such as means can be calculated for different variables, such as days of the week to give a numeric measure that can be compared.
+Additionally, summary statistics such as means can be calculated for different variables, such as average zero-sugar sales for each day of the week to give a numeric summary.
 
 # Formal Analysis
 
