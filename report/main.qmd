@@ -54,7 +54,6 @@ Exploratory data analysis can visualize relationships among variables, and infor
 
 Additionally, summary statistics such as means can be calculated for different variables, such as average zero-calorie sales for each day of the week to give a numeric summary.
 
-
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: fig-myFirstFigure
 #| fig-cap: Proportion of total sugary and zero-calorie drink sales coming from zero-calorie drinks over time
@@ -93,6 +92,10 @@ Overall, the recommended analysis plan includes a GLMM with a Poisson distributi
 
 Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to predict the proportion of zero-calorie beverage sales, and determining which effects are most relevant using the likelihood ratio. However, the Poisson GLMM assumes that the underlying data follows a Poisson distribution. If this assumption is invalid, we recommend utilizing robust Poisson regression, as the robust Poisson model does not require this distributional assumption.
 
+\newpage
 # References
+
+::: {#refs}
+:::
 
 # Statistical Appendix
