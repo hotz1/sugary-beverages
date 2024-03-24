@@ -38,3 +38,6 @@ vignettes/*.pdf
 # R Environment Variables
 .Renviron
 
+# quarto/latex styling files, compiled files, etc
+README_files/
+README.html
