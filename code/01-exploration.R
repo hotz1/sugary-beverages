@@ -36,11 +36,11 @@ sugary_bev %>%
                                       "Saturday", "Sunday"))) %>%
   mutate(TotalBottled = ZeroCal + Sugary) %>%
   ggplot(aes(x = forcats::fct_rev(Day), y = TotalBottled)) +
-  geom_boxplot() +
+  geom_boxplot(aes(col=Site)) +
   theme_bw() +
   labs(x = "Day of the Week", 
        y = "Bottled Drinks Sold",
-       title = "Combined sales of bottled zero-calorie and sugared beverages per day") +
+       title = "Total Sales per day") +
   theme(plot.title = element_text(hjust = 0.5)) + 
   coord_flip()
 
@@ -60,11 +60,11 @@ sugary_bev %>%
                                       "Saturday", "Sunday"))) %>%
   mutate(ZeroCalProp = ZeroCal/(ZeroCal + Sugary)) %>%
   ggplot(aes(x = forcats::fct_rev(Day), y = ZeroCalProp)) +
-  geom_boxplot() +
+  geom_boxplot(aes(col=Site)) +
   theme_bw() +
   labs(x = "Day of the Week", 
        y = "Proportion of Zero Calorie Sales",
-       title = "Proportion of bottled beverage sales with zero calories per day") +
+       title = "Proportion of bottled beverage\n sales with zero calories per day") +
   theme(plot.title = element_text(hjust = 0.5)) + 
   ylim(0,1) +
   coord_flip()
@@ -94,3 +94,11 @@ sugary_bev %>%
   facet_wrap(~Site)+
   scale_fill_continuous(guide = guide_legend()) +
   theme(legend.position="bottom")
+
+# Scatterplot of sugary drinks and zero-calorie
+sugary_bev %>%  
+  ggplot(aes(x=ZeroCal,y=Sugary))+
+    geom_point(aes(col=Site))+
+    labs(title="Zero-Calorie vs Sugared Drink Sales",
+         x="Zero-Calorie Sales",
+         y="Sugared Drink Sales")
