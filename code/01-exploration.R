@@ -1,5 +1,7 @@
 library(here)
 library(tidyverse)
+library(visdat)
+library(naniar)
 
 # Read in data
 sugary_bev <- read.csv(file = "./rawdata/june1data.csv", 
@@ -9,7 +11,7 @@ sugary_bev <- read.csv(file = "./rawdata/june1data.csv",
 sugary_bev %>%
   mutate(percent_zero = ZeroCal/(ZeroCal+Sugary)) %>%
   ggplot(aes(x=Count,y=percent_zero,col=Site))+
-  geom_point()+
+  geom_point(alpha=0.5)+
   geom_smooth(se=F)+
   scale_fill_continuous(guide = guide_legend()) +
   theme(legend.position="bottom")+
@@ -105,3 +107,12 @@ sugary_bev %>%
     labs(title="Zero-Calorie vs Sugared Drink Sales",
          x="Zero-Calorie Sales",
          y="Sugared Drink Sales")
+
+# Check for missing data
+vis_miss(sugary_bev)
+
+sugary_bev %>% 
+  group_by(Site) %>% 
+  miss_var_summary() %>% 
+  arrange(desc(n_miss))
+
