@@ -48,14 +48,14 @@ Exploratory data analysis can visualize relationships among variables, and infor
 
 1.  Side-by-side boxplots of zero-calorie or sugary drink sales by variables such as day of the week or site can help identify if there are differences in sales between different levels of the categorical variables.
 
-2.  Plots of the proportion of total sugary and zero-calorie sales coming from zero-calorie drinks over counts, such as Figure 1, can be used to observe and identify the patterns over time. These plots can also be stratified by other variables, such as intervention to identify differences between groups.
+2.  Plots of the proportion of total sugary and zero-calorie sales coming from zero-calorie drinks over counts, such as @fig-1, can be used to observe and identify the patterns over time. These plots can also be stratified by other variables, such as intervention to identify differences between groups.
 
 3.  A scatterplot of zero-calorie vs sugary drink sales can be used to investigate the kind of relationship they may have and to potentially identify if they are highly correlated.
 
 Additionally, summary statistics such as means can be calculated for different variables, such as average zero-calorie sales for each day of the week to give a numeric summary.
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
-#| label: fig-myFirstFigure
+#| label: fig-1
 #| fig-cap: Proportion of total sugary and zero-calorie drink sales coming from zero-calorie drinks over time
 #| 
 library(here)
@@ -71,6 +71,7 @@ geom_point()+
 geom_smooth(se=F)+
 scale_fill_continuous(guide = guide_legend()) +
 theme(legend.position="bottom")+
+theme_minimal()+
 labs(x = "Day of the Experiment",
      y = "Proportion of Total Zero-Calorie \nand Sugary Drink Sales")
 ```

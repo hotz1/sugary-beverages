@@ -6,13 +6,16 @@ sugary_bev <- read.csv(file = "./rawdata/june1data.csv",
   colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
 
 # Plot percentage of sugary or zero sugar sales accounted for by zero sugar drinks over the counts by site
-sugary_bev %>%  
-  mutate(percent_zero = ZeroCal/(ZeroCal+Sugary)) %>% 
+sugary_bev %>%
+  mutate(percent_zero = ZeroCal/(ZeroCal+Sugary)) %>%
   ggplot(aes(x=Count,y=percent_zero,col=Site))+
-    geom_point()+
-    geom_smooth(se=F)+
-    scale_fill_continuous(guide = guide_legend()) +
-    theme(legend.position="bottom")
+  geom_point()+
+  geom_smooth(se=F)+
+  scale_fill_continuous(guide = guide_legend()) +
+  theme(legend.position="bottom")+
+  theme_minimal()+
+  labs(x = "Day of the Experiment",
+       y = "Proportion of Total Zero-Calorie \nand Sugary Drink Sales")
 
 # See if compute mean proportion of sales by days of the week
 sugary_bev %>%  
