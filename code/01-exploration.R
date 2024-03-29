@@ -73,6 +73,43 @@ sugary_bev %>%
   theme(plot.title = element_text(hjust = 0.5)) + 
   ylim(0,1) +
   coord_flip()
+
+# Plots of (total) drink sales per day by site split by weekday/weekend
+sugary_bev %>%
+  drop_na(Total, ZeroCal, Sugary) %>%
+  mutate(Weekend = if_else(DofW %in% c(1:5), "Weekday", "Weekend")) %>%
+  pivot_longer(cols = c(ZeroCal, Sugary, Total), 
+               names_to = "DrinkType", values_to = "DrinkSales") %>% 
+  mutate(DrinkType = factor(DrinkType, levels = c("Total", "ZeroCal", "Sugary"))) %>%
+  ggplot(aes(x = Count, y = DrinkSales, colour = Weekend)) + 
+  geom_point(alpha = 0.5) + 
+  geom_smooth(se=FALSE) + 
+  labs(x = "Day of the Experiment", y = "Number of Drinks Sold",
+       title = "Number of Total Drink Sales and\nZero-Calorie Drink Sales Daily per Site",
+       colour = "Date of Week") +
+  theme_bw() + 
+  scale_color_manual(values = c("#D7191C", "#2C7BB6")) +
+  facet_grid(rows = vars(DrinkType), cols = vars(Site)) + 
+  theme(plot.title = element_text(hjust = 0.5),
+        strip.background = element_rect(fill = "#FFD70040"))
+
+sugary_bev %>%
+  drop_na(Total, ZeroCal, Sugary) %>%
+  mutate(Weekend = if_else(DofW %in% c(1:5), "Weekday", "Weekend")) %>%
+  pivot_longer(cols = c(ZeroCal, Sugary, Total), 
+               names_to = "DrinkType", values_to = "DrinkSales") %>% 
+  mutate(DrinkType = factor(DrinkType, levels = c("Total", "ZeroCal", "Sugary"))) %>%
+  ggplot(aes(x = Count, y = DrinkSales, colour = DrinkType)) + 
+  geom_point(alpha = 0.5) + 
+  geom_smooth(se=FALSE) + 
+  labs(x = "Day of the Experiment", y = "Number of Drinks Sold",
+       title = "Number of Total Drink Sales and\nZero-Calorie Drink Sales Daily per Site",
+       colour = "Drink Type") +
+  theme_bw() + 
+  scale_color_manual(values = c("#FC8D59", "#FFFFBF", "#91BFDB")) +
+  facet_grid(rows = vars(Weekend), cols = vars(Site)) + 
+  theme(plot.title = element_text(hjust = 0.5),
+        strip.background = element_rect(fill = "#B2ABD240"))
   
 # See if sales differ by site
 
