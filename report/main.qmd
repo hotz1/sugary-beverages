@@ -44,15 +44,18 @@ Some observations include the sales of 100% juice, orange juice, and sports drin
 
 # Exploratory Analysis
 
-Exploratory data analysis can visualize relationships among variables, check distributional assumptions, and informally give some insight into the results that may be expected. Based on the data and statistical questions, the following figures are recommended:
+## Side-by-Side Boxplots
 
-1.  Side-by-side boxplots of zero-calorie or sugary drink sales by variables such as day of the week or site can help identify if there are differences in sales between different levels of the categorical variables.
+Side-by-side boxplots of the proportion of total sales coming from zero-calorie drinks for each site for each day of the week were created. They showed a similar proportion for each site and day of the week across sites, though one of the sites differed slightly and seemed to have more variable sales. Boxplots of total drinks sold showed one site had a lot more sales than the other two sites. Sales were also much lower for all sites on weekends compared to weekdays
 
-2.  Plots of the proportion of total sugary and zero-calorie sales coming from zero-calorie drinks over counts, such as @fig-1, can be used to observe and identify the patterns over time. These plots can also be stratified by other variables, such as intervention to identify differences between groups.
+## Spaghetti Plots
+A plot of the proportion of total sugary and zero-calorie sales coming from zero-calorie drinks over counts (@fig-1), shows the trends of sales across each site over day. Surprisingly, two of the sites seem to have a downward trend, so the proportion of sales coming from zero calorie drinks is decreasing. This is not the expected trend, and will have to be formally tested.
 
-3.  A scatterplot of zero-calorie vs sugary drink sales can be used to investigate the kind of relationship they may have (eg. linear, positive) and to potentially identify if they are highly correlated.
+## Scatterplot Matrix
+A scatterplot matrix comparing sugary, zero-calorie and total drink sales showed that they are all highly correlated with each other. The matrix also shows a positive linear relationship between zero-calorie, sugary and total sales, so for each pair, as sales of one type increase, the other tends to increase as well.
 
-Additionally, a missing data table can summarize how many observations are missing for each variable. A missing data plot could be used to visualize the extent of the missing data.
+## Missing Data Plot
+A missing data plot showed that orange juice, 100% juice and sports drinks had many missing observations. A missing data table also showed this, additionally showing that some sites did not report some of these sales at all.
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: fig-1
@@ -102,3 +105,5 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 {{< pagebreak >}}
 
 # Statistical Appendix
+
+## Exploratory Data Analysis
