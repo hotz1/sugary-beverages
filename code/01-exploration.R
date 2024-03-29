@@ -9,6 +9,20 @@ library(viridis)
 sugary_bev <- read.csv(file = "./rawdata/june1data.csv", 
   colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
 
+# Check for missing data
+vis_miss(sugary_bev)
+
+sugary_bev %>% 
+  group_by(Site) %>% 
+  miss_var_summary() %>% 
+  arrange(desc(n_miss))
+
+# Get rid of rows with total sales less than the drink sales summed and missing totals
+sugary_bev$totals <-rowSums(sugary_bev[,5:9],na.rm = T)
+sugary_bev =sugary_bev[!is.na(sugary_bev$Total),]
+sugary_bev = sugary_bev[!(sugary_bev$Total<sugary_bev$totals),]
+
+
 # Side by Side Boxplots
 
 # Plot the total sales of bottled drinks by day of the week
@@ -25,8 +39,7 @@ sugary_bev %>%
   mutate(Day = factor(Day, levels = c("Monday", "Tuesday", "Wednesday", 
                                       "Thursday", "Friday", 
                                       "Saturday", "Sunday"))) %>%
-  mutate(TotalBottled = ZeroCal + Sugary) %>%
-  ggplot(aes(x = forcats::fct_rev(Day), y = TotalBottled)) +
+  ggplot(aes(x = forcats::fct_rev(Day), y = Total)) +
   geom_boxplot(aes(col=Site)) +
   theme_bw() +
   labs(x = "Day of the Week", 
@@ -49,7 +62,7 @@ sugary_bev %>%
   mutate(Day = factor(Day, levels = c("Monday", "Tuesday", "Wednesday", 
                                       "Thursday", "Friday", 
                                       "Saturday", "Sunday"))) %>%
-  mutate(ZeroCalProp = ZeroCal/(ZeroCal + Sugary)) %>%
+  mutate(ZeroCalProp = ZeroCal/Total) %>%
   ggplot(aes(x = forcats::fct_rev(Day), y = ZeroCalProp)) +
   geom_boxplot(aes(col=Site)) +
   theme_bw() +
@@ -98,9 +111,10 @@ sugary_bev %>%
         strip.background = element_rect(fill = "#B2ABD240"))
   
 # See if sales differ by site
-# Plot percentage of sugary or zero sugar sales accounted for by zero sugar drinks over the counts by site
+
+# Plot percentage of zero sugar sales accounted for by zero sugar drinks over the counts by site
 sugary_bev %>%
-  mutate(percent_zero = ZeroCal/(ZeroCal+Sugary)) %>%
+  mutate(percent_zero = ZeroCal/Total) %>%
   ggplot(aes(x=Count,y=percent_zero,col=Site))+
   geom_point(alpha=0.5)+
   geom_smooth(se=F)+
@@ -108,7 +122,19 @@ sugary_bev %>%
   theme(legend.position="bottom")+
   theme_minimal()+
   labs(x = "Day of the Experiment",
-       y = "Proportion of Total Zero-Calorie \nand Sugary Drink Sales")
+       y = "Proportion of Total Sales")
+
+# Plot percentage of sugary sales accounted for by zero sugar drinks over the counts by site
+sugary_bev %>%
+  mutate(percent_sugar = Sugary/Total) %>%
+  ggplot(aes(x=Count,y=percent_sugar,col=Site))+
+  geom_point(alpha=0.5)+
+  geom_smooth(se=F)+
+  scale_fill_continuous(guide = guide_legend()) +
+  theme(legend.position="bottom")+
+  theme_minimal()+
+  labs(x = "Day of the Experiment",
+       y = "Proportion of Total Sales")
 
 # See if compute mean proportion of sales by days of the week
 sugary_bev %>%  
@@ -138,23 +164,9 @@ sugary_bev %>%
   scale_fill_continuous(guide = guide_legend()) +
   theme(legend.position="bottom")
 
-# Scatterplot of sugary drinks and zero-calorie
-sugary_bev %>%  
-  ggplot(aes(x=ZeroCal,y=Sugary))+
-    geom_point(aes(col=Site))+
-    labs(title="Zero-Calorie vs Sugared Drink Sales",
-         x="Zero-Calorie Sales",
-         y="Sugared Drink Sales")
-
 # Correlation
 ggpairs(sugary_bev,columns=c(5,6,10),aes(col=Site,alpha=0.5))+
   scale_fill_viridis(discrete = TRUE,aesthetics = c("fill","col"))
 
-# Check for missing data
-vis_miss(sugary_bev)
 
-sugary_bev %>% 
-  group_by(Site) %>% 
-  miss_var_summary() %>% 
-  arrange(desc(n_miss))
 
