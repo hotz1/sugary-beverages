@@ -59,8 +59,14 @@ for (outcome_name in c("ZeroCal", "Sugary")) {
 
   ## get LRT p values
   lrt_pvals <- p.adjust(anova(m0, m1, m2)[["Pr(>Chisq)"]][2:3], method = "holm")
-
-
+  write_tsv(
+    data.frame(term = c("overall", "interaction"), p.adj = lrt_pvals),
+    here(
+      str_glue(
+        "output/formal_analysis/lrt_{outcome_name}.tsv"
+      )
+    )
+  )
 
   ## get pairwise comparisons using marginal contrasts
 

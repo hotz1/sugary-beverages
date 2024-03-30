@@ -103,13 +103,49 @@ sugary_bev_clean %>%
 
 # Formal Analysis
 
-In this study, an effective intervention will increase, relative to the baseline, the proportion of daily sales of zero-calorie beverages among sales that are either zero-calorie beverages or sugary beverages. This proportion increases when there are relatively more sales of zero-calorie beverages than of sugary beverages. This avoids the need to perform two separate analyses (one for zero-calorie and another one for sugary beverages) and any variation due to sales of other unrelated products.
+To answer the statistical questions, we formally assessed the relative effects of the interventions on the average daily proportion of both zero calorie and sugary bevarage sales. The intervention groups had a statistically significant effect on the daily sales of both zero calorie and sugary bevarage sales -- likelihood-ratio test (LRT) p <0.0001 in both cases. @tbl-pairwise-zerocal shows the pairwise group comparisons for zero calorie sales. The same comparisons for sugary bevarage sales are shown in @tbl-pairwise-sugary. In all cases, relative effects are represented as relative percentage changes alongsie 95% confidence intervals (CI) and Holm-adjusted p-values (Wald tests). Compared with the baseline periods, it is clear that the combined ``Discount and messaging'' intervention was associated with an increase in the proportion of both zero calorie and sugary bevarage sales. The combined messaging strategy was also associated with an increase zero calorie beverage sales.
 
-To answer the statistical questions, we recommend using a generalized linear mixed effects model (GLMM) with a Poisson distribution. This type of model uses count data and allows for different effects across sites. It can also handle the longitudinal nature of the data. The response variable is the counts of zero-calorie beverage sales. Including the log-transformed total sales of zero-calorie or sugary beverages as an offset, the Poisson GLMM models the proportion of zero-calorie beverage sales as defined previously. The main independent variables of interest are intervention indicators, treating the baseline periods as the reference. Other covariates in the model include the site, the day of the week, and the study day.
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+#| label: tbl-pairwise-zerocal
+#| tbl-cap: "Pairwise group comparisons on average proportion of zero calorie sales."
+readr::read_tsv(
+  here::here("output/formal_analysis/pairwise_comparisons_ZeroCal.tsv"),
+  show_col_types = FALSE
+) %>%
+  dplyr::mutate(
+    `Adjusted p-value` = stringr::str_remove(
+      `Adjusted p-value`, "p=|p<"
+    )
+  ) %>%
+  dplyr::rename(
+    `Relative change (95% CI)` := `Relative change`
+  ) %>%
+  dplyr::select(-`Unadjusted p-value`) %>%
+  kableExtra::kable() %>%
+  kableExtra::column_spec(1, width = "12em")
+```
 
-To assess whether intervention effects differ by site, we recommend testing interaction effects between sites and intervention groups. This assessment can be implemented as a Likelihood Ratio Test. We recommend including random effects for intervention groups, which would allow for different effects between groups.
 
-A major assumption of the GLMM with Poisson model is the correct specification of the Poisson distribution. To avoid this assumption, a robust version of the above model is recommended. In particular, the same model specification can be used, while employing Poisson estimating equations with a so-called sandwich covariance estimator. This model is known as robust Poisson as it remains valid even if the data do not support a Poisson distribution [@Talbot2022]. Once exponentiated, coefficients from the GLMM and the robust Poisson model have the same interpretation. For instance, if the exponentiated coefficient for a given intervention is equal to 1.5, then the proportion of zero-calorie beverage sales increases by 50% under the intervention, as compared to the baseline.
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+#| label: tbl-pairwise-sugary
+#| tbl-cap: "Pairwise group comparisons on average proportion sugary sales."
+readr::read_tsv(
+  here::here("output/formal_analysis/pairwise_comparisons_Sugary.tsv"),
+  show_col_types = FALSE
+) %>%
+  dplyr::mutate(
+    `Adjusted p-value` = stringr::str_remove(
+      `Adjusted p-value`, "p=|p<"
+    )
+  ) %>%
+  dplyr::rename(
+    `Relative change (95% CI)` := `Relative change`
+  ) %>%
+  dplyr::select(-`Unadjusted p-value`) %>%
+  kableExtra::kable() %>%
+  kableExtra::column_spec(1, width = "12em")
+```
+
 
 # Conclusion
 
