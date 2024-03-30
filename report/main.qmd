@@ -58,7 +58,7 @@ A missing data plot (@fig-2) showed that orange juice, 100% juice and sports dri
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: fig-1
-#| fig-cap: Proportion of total sugary and zero-calorie drink sales coming from zero-calorie drinks over time
+#| fig-cap: Proportion of zero-calorie beverages sold per day
 
 library(here) 
 library(visdat)
@@ -69,21 +69,27 @@ library(tidyverse)
 sugary_bev <- read.csv(file = "../rawdata/june1data.csv", 
   colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
 
-miss_plot <- vis_miss(sugary_bev) 
-
-miss_table <- sugary_bev %>% 
-  group_by(Site) %>% 
-  miss_var_summary() %>% 
-  arrange(desc(n_miss)) %>% 
-  head(n=12) %>% 
-  knitr::kable(col.names = c("Site","Type of Sale","Number Missing","Percentage Missing")) 
+# miss_plot <- vis_miss(sugary_bev)
+# 
+# miss_table <- sugary_bev %>%
+#   group_by(Site) %>%
+#   miss_var_summary() %>%
+#   arrange(desc(n_miss)) %>%
+#   head(n=12) %>%
+#   knitr::kable(col.names = c("Site","Type of Sale","Number Missing","Percentage Missing"))
 
 # Get rid of rows with total sales less than the drink sales summed and missing totals
-sugary_bev$totals <-rowSums(sugary_bev[,5:9],na.rm = T)
-sugary_bev =sugary_bev[!is.na(sugary_bev$Total),]
-sugary_bev = sugary_bev[!(sugary_bev$Total<sugary_bev$totals),]
+# sugary_bev$totals <-rowSums(sugary_bev[,5:9],na.rm = T)
+# sugary_bev =sugary_bev[!is.na(sugary_bev$Total),]
+# sugary_bev = sugary_bev[!(sugary_bev$Total<sugary_bev$totals),]
 
-sugary_bev %>%
+sugary_bev_clean <- sugary_bev %>% 
+  rowwise() %>%
+  mutate(TotalSales = sum(across(c(5:9)), na.rm = TRUE)) %>%
+  drop_na(ZeroCal, Sugary, Total) %>%
+  filter(Total >= TotalSales)
+
+sugary_bev_clean %>%
   mutate(percent_zero = ZeroCal/Total) %>%
   ggplot(aes(x=Count,y=percent_zero,col=Site))+
   geom_point(alpha=0.5)+
@@ -126,14 +132,23 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 
 Below is the plot summarizing which observations have missing data and in which variables. A missing data table is also given, summarizing the number and percentage of missing observations for variables across sites. Site and variable combinations with no missing data points are ommited from the table
 
-```{r,echo=FALSE,out.width="60%"}
+```{r,echo=FALSE,out.width="75%"}
 #| label: fig-2
 #| fig-cap: Missing data by variable and observation
+miss_plot <- vis_miss(sugary_bev)
 miss_plot
 ```
-
 ```{r,echo=FALSE,out.width="50%"}
 #| label: fig-3
-#| fig-cap: Number of missing observations and percentage missing by variable
-miss_table
+#| fig-cap: Number and proportion of missing observations, grouped by site and by variable
+miss_table <- sugary_bev %>%
+  group_by(Site) %>%
+  miss_var_summary() %>%
+  arrange(desc(n_miss))
+
+miss_table %>%
+  mutate(pct_miss = paste0(formatC(pct_miss, 2, format = "f"), "%")) %>%
+  head(n = 12) %>%
+  knitr::kable(col.names = c("Site", "Type of Drink",
+                             "Number of Missing Observations", "Percentage Missing"))
 ```
