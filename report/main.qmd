@@ -44,39 +44,40 @@ Some observations include the sales of 100% juice, orange juice, and sports drin
 
 # Exploratory Analysis
 
-## Side-by-Side Boxplots
-
 Side-by-side boxplots of the proportion of total sales coming from zero-calorie drinks for each site for each day of the week were created. They showed a similar proportion for each site and day of the week across sites, though one of the sites differed slightly and seemed to have more variable sales. Boxplots of total drinks sold showed one site had a lot more sales than the other two sites. Sales were also much lower for all sites on weekends compared to weekdays
 
-## Spaghetti Plots
-A plot of the proportion of total sugary and zero-calorie sales coming from zero-calorie drinks over counts (@fig-1), shows the trends of sales across each site over day. Surprisingly, two of the sites seem to have a downward trend, so the proportion of sales coming from zero calorie drinks is decreasing. This is not the expected trend, and will have to be formally tested.
+A plot of the proportion of total sales coming from zero-calorie drinks over experiment day (@fig-1), shows the trends of sales across each site over day. There was some difference at the begining of the experiment, but over time the average proportion seemed relatively stable, which is not expected.
 
-## Scatterplot Matrix
 A scatterplot matrix comparing sugary, zero-calorie and total drink sales showed that they are all highly correlated with each other. The matrix also shows a positive linear relationship between zero-calorie, sugary and total sales, so for each pair, as sales of one type increase, the other tends to increase as well.
 
-## Missing Data Plot
-A missing data plot showed that orange juice, 100% juice and sports drinks had many missing observations. A missing data table also showed this, additionally showing that some sites did not report some of these sales at all.
+A missing data plot showed that orange juice, 100% juice and sports drinks had many missing observations. The plot also showed that some observations had no sale measurements. A missing data table also showed many missing juice or sport drink sales, additionally showing that some sites did not record some of these sales at all. 
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: fig-1
-#| fig-cap: Proportion of total sugary and zero-calorie drink sales coming from zero-calorie drinks over time
-#| 
-library(here)
+#| fig-cap: Proportion of total sales coming from zero-calorie drinks over time
+
+library(here) 
 library(tidyverse)
+
 # Read in data
-sugary_bev <- read.csv(file = here("./rawdata/june1data.csv"),
-colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
-# Plot percentage of sugary or zero sugar sales accounted for by zero sugar drinks over the counts by site
+sugary_bev <- read.csv(file = "../rawdata/june1data.csv", 
+  colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
+
+# Get rid of rows with total sales less than the drink sales summed and missing totals
+sugary_bev$totals <-rowSums(sugary_bev[,5:9],na.rm = T)
+sugary_bev =sugary_bev[!is.na(sugary_bev$Total),]
+sugary_bev = sugary_bev[!(sugary_bev$Total<sugary_bev$totals),]
+
 sugary_bev %>%
-mutate(percent_zero = ZeroCal/(ZeroCal+Sugary)) %>%
-ggplot(aes(x=Count,y=percent_zero,col=Site))+
-geom_point(alpha=0.5)+
-geom_smooth(se=F)+
-scale_fill_continuous(guide = guide_legend()) +
-theme(legend.position="bottom")+
-theme_minimal()+
-labs(x = "Day of the Experiment",
-     y = "Proportion of Total Zero-Calorie \nand Sugary Drink Sales")
+  mutate(percent_zero = ZeroCal/Total) %>%
+  ggplot(aes(x=Count,y=percent_zero,col=Site))+
+  geom_point(alpha=0.5)+
+  geom_smooth(se=F)+
+  scale_fill_continuous(guide = guide_legend()) +
+  theme(legend.position="bottom")+
+  theme_minimal()+
+  labs(x = "Day of the Experiment",
+       y = "Proportion of Total Sales") 
 ```
 
 # Formal Analysis
@@ -106,4 +107,4 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 
 # Statistical Appendix
 
-## Exploratory Data Analysis
+
