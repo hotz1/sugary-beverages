@@ -147,6 +147,12 @@ readr::read_tsv(
 ```
 
 
+Further, the intervention effects varied significantly across study sites, for both zero-calorie and sugary beverage sales (LRT p <0.0001 in both cases). The variability in proportion of daily sales from each type of beverage can be visualized in @fig-adjusted-pred-zerocal and @fig-adjusted-pred-sugary.
+
+![Expected daily proportion of zero-calorie beverage sales across study sites and intervention groups.](../output/formal_analysis/adjusted_predictions_ZeroCal.png){#fig-adjusted-pred-zerocal width=600}
+
+![Expected daily proportion of zero-calorie beverage sales across study sites and intervention groups.](../output/formal_analysis/adjusted_predictions_Sugary.png){#fig-adjusted-pred-sugary width=600}
+
 # Conclusion
 
 To accurately assess the efficacy of the interventions, it is best to create a statistical model which explains how these interventions affect the proportion of zero-calorie beverages. This response variable is less prone to variation than the overall sales of zero-calorie drinks, and it still provides an easily-interpretable metric for consumer purchasing behaviours.
