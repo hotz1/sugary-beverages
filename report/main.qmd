@@ -32,18 +32,19 @@ Strong evidence has linked habitual intake of sugar-sweetened beverages (SSBs) w
 
 This study aims to evaluate two groups of interventions which intend to shift consumers towards purchasing zero-calorie beverages instead of SSBs. This study assesses five separate interventions implemented at three hospitals. Three of these interventions utilize calorie-related messaging and the other two use price discounts to incentivize purchasing zero-calorie beverages.
 
-The primary statistical question is whether these interventions are associated with differences in the average daily proportion of zero-calorie and sweetened beverage sales. Additional questions of interest include whether these interventions are equally effective at each hospital, and whether the effect of multiple simultaneous interventions is greater than the "sum of its parts". 
+The primary statistical question is whether these interventions are associated with differences in the average daily proportion of zero-calorie and sweetened beverage sales. Additional questions of interest include whether these interventions are equally effective at each hospital, and whether the effect of multiple simultaneous interventions is greater than the "sum of its parts".
+
 # Data Description and Summaries
 
-The data come from an interrupted time-series multi-site quasi-experimental study on sales of sweetened and zero-calorie beverages at three United States hospitals over a 30-week period. The data consists of 631 observations aggregated across the three sites. Each observation represents the daily sales of bottled beverages among multiple storefronts per site. Sales are recorded automatically by point of sale terminals in Site A, and manually by cashiers at Sites B and C. Beverage sales are recorded every day from the beginning of the experiment until the final day, including weekends and holidays.
+The data come from an interrupted time-series multi-site quasi-experimental study on sales of sweetened and zero-calorie beverages at three United States hospitals over a 30-week period. The data consists of 631 observations aggregated across the three sites. Each observation represents the daily sales of bottled beverages among multiple storefronts per site. Sales are automatically recorded by point of sale terminals in one site, and manually by store employees at remaining sites. Beverage sales are recorded every day from the beginning of the experiment until the final day, including weekends and holidays.
 
 The data includes the following variables: the day of the experiment, the corresponding weekday, the site, and the ongoing intervention. The day variable is a positive integer. The latter three are categorical variables which respectively have seven, three, and nine levels. 
 
-The data additionally contains the daily sales of bottled zero-calorie and sweetened beverages sold per site, and the total quantity of beverages sold per site each day. These are all non-negative integer values. 
+The data additionally contains the daily sales of bottled zero-calorie and sweetened beverages sold per site, and the total daily quantity of beverages sold per hospital. These are all non-negative integer values. 
 
-Some observations also include the daily sales of 100% juice, orange juice, and sports drinks, which are also non-negative integer values. These counts are only consistently recorded at Site A, and rarely recorded in Sites B and C. 
+Some observations also include the daily sales of 100% juice, orange juice, and sports drinks, which are also non-negative integer values. These quantities are only consistently recorded at *CHOP* and hardly recorded at the other hospitals. 
 
-Quantities of bottled zero-calorie and sugared beverages are missing in nine observations, each containing missing data for every sales-related column. Of these nine observations, seven occur in the final week of the study at Site B, and two occur mid-study at Site C. One observation which occurs mid-study from Site B does not report the total quantity of beverages sold, though the quantity of bottled zero-calorie and sugared beverage sales are provided. 
+Quantities of bottled zero-calorie and sugared beverages are missing in nine observations, each containing missing data for every sales-related column. Of these nine observations, seven occur in the final week of the study at *HF*, and two occur mid-study at *NS*. One mid-study observation from *HF* does not report the total quantity of beverages sold, though the quantity of bottled zero-calorie and sugared beverage sales are provided. 
 
 # Exploratory Analysis
 
