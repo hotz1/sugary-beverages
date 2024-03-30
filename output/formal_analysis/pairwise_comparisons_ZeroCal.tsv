@@ -1,0 +1,9 @@
+Comparison	Relative change	Unadjusted p-value	Adjusted p-value
+Discount vs. Baseline	9.4% (-2.11% — 20.88%)	p=0.10959	p=0.516
+Discount and messaging vs. Baseline	38.6% (24.02% — 53.19%)	p<0.0001	p<0.0001
+Exercise messaging vs. Baseline	-7.8% (-17.61% — 2.01%)	p=0.11919	p=0.516
+Caloric content messaging vs. Baseline	-8% (-17.68% — 1.63%)	p=0.10312	p=0.516
+Combination messaging vs. Baseline	-13.2% (-22.27% — -4.03%)	p=0.0047	p=0.028
+Discount and messaging vs. Discount	26.7% (12.95% — 40.48%)	p=0.00014	p=0.001
+Combination messaging vs. Exercise messaging	-5.8% (-16.19% — 4.58%)	p=0.27296	p=0.546
+Combination messaging vs. Caloric content messaging	-5.6% (-15.85% — 4.71%)	p=0.28811	p=0.546

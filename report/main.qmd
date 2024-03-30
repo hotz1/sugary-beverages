@@ -4,18 +4,24 @@ title:
 format: 
   pdf:
     fontsize: 11pt
+    cite-method: biblatex
+    citecolor: Cerulean
 date:
-  2024-03-01
+  2024-03-29
 editor: 
   visual
 bibliography: 
   ../docs/references.bib
 csl: 
   ../docs/elsevier-vancouver.csl
+biblatexoptions: 
+  - backend=biber
+  - style=numeric
+  - sorting=nty
 author: 
-- Christine Chuong (20124798)
-- Giuliano Cruz (79247979)
-- Joey Hotz (18461400)
+  - Christine Chuong (20124798)
+  - Giuliano Cruz (79247979)
+  - Joey Hotz (18461400)
 include-in-header: 
   text: |
     \usepackage{authblk}
@@ -28,69 +34,130 @@ include-in-header:
 
 # Introduction
 
-Strong evidence has linked habitual intake of sugar-sweetened beverages (SSBs) with weight gain and a higher risk of type 2 diabetes mellitus, cardiovascular diseases, and even cancer @Malik2022. Multiple policy interventions to inhibit consumption of SSBs have been proposed @Krieger2021, including taxation of SSBs, limiting access to SSBs in schools and healthcare facilities, and adding informative package labelling. As policymakers create potential interventions to limit SSB consumption, there is a need for data-driven methods of determining their efficacy.
+Strong evidence has linked habitual intake of sugar-sweetened beverages (SSBs) with weight gain and a higher risk of type 2 diabetes mellitus, cardiovascular diseases, and even cancer [@Malik2022]. Multiple policy interventions to inhibit consumption of SSBs have been proposed [@Krieger2021], including taxation of SSBs, limiting access to SSBs in schools and healthcare facilities, and adding informative package labelling. As policymakers create potential interventions to limit SSB consumption, there is a need for data-driven methods of determining their efficacy.
 
-This study aims to evaluate two kinds of interventions which intend to shift consumers towards zero-calorie beverages: interventions with caloric messaging or price discounts. There are three caloric messaging interventions and two price discount interventions.
+This study aims to evaluate two groups of interventions which intend to shift consumers towards purchasing zero-calorie beverages instead of SSBs. Five separate interventions implemented at three hospitals are assessed. Three of these interventions utilize calorie-related messaging and the other two use price discounts to incentivize purchasing zero-calorie beverages.
 
-The primary statistical question is whether these interventions are associated with differences in the average proportion of daily sales of zero-calorie beverages. Secondary questions include whether there are significant interactions between interventions and site effects, and whether a combination of interventions are more effective than each individual intervention.
+The primary statistical question is whether these interventions are associated with differences in the average daily proportion of zero-calorie and sweetened beverage sales. Additional questions of interest include whether these interventions are equally effective at each hospital, and whether the effect of multiple simultaneous interventions is greater than the "sum of its parts".
 
 # Data Description and Summaries
 
-The data come from an interrupted time-series multi-site quasi-experimental study on sales of sweetened and zero-calorie beverages at three United States hospitals over a 30-week period. There are 631 observations across all three sites. Each observation represents the total daily sales of bottled beverages across multiple storefronts at a single site. Sales are recorded automatically by point of sale terminals in Site A, and manually by cashiers at Sites B and C. Sales are recorded every day from the start of the experiment until the final day, including weekends and holidays.
+The data come from an interrupted time-series multi-site quasi-experimental study on sales of sweetened and zero-calorie beverages at three United States hospitals over a 30-week period. The data consists of 631 observations aggregated across the three sites. Each observation represents the daily sales of bottled beverages among multiple storefronts per site. Sales are automatically recorded by point of sale terminals in one site, and manually by store employees at remaining sites. Beverage sales are recorded every day from the beginning of the experiment until the final day, including weekends and holidays.
 
-The data includes the following variables: the day of the experiment, the corresponding weekday, the site, and the ongoing intervention. The day variable is a positive integer. Categorical variables include weekday with seven levels, site with three levels, and intervention with nine levels. The daily sales metrics include the number of bottled zero-calorie and sweetened beverages sold per site. These are each non-negative integer variables. The data also includes the total number of beverages sold per site, which is another non-negative integer value.
+The data includes the following variables: the day of the experiment, the corresponding weekday, the site, and the ongoing intervention. The day variable is a positive integer. The latter three are categorical variables which respectively have seven, three, and nine levels. The data also contains the daily sales of bottled zero-calorie and sweetened beverages sold per site, and the total daily quantity of beverages sold per hospital. These are all non-negative integer values.Some observations also include the daily sales of 100% juice, orange juice, and sports drinks, which are also non-negative integer values. These quantities are only consistently recorded at *CHOP* and hardly recorded at the other hospitals.
 
-Some observations include the sales of 100% juice, orange juice, and sports drinks, which are recorded as integers. These counts are only consistently recorded at Site A, and rarely recorded for Site B and C. There are nine days which are missing counts for the bottled zero-calorie and sugared beverages. Counts for the bottles zero-calorie and sugared beverages are missing in nine observations, each containing missing data for every sales-related column. Of these nine observations, seven occur in the final week of the study at Site B, and two occur mid-study at Site C.
+Quantities of bottled zero-calorie and sugared beverages are missing in nine observations, each containing missing data for every sales-related column. Of these nine observations, seven occur in the final week of the study at *HF*, and two occur mid-study at *NS*. One mid-study observation from *HF* does not report the total quantity of beverages sold, though the quantity of bottled zero-calorie and sugared beverage sales are provided.
 
 # Exploratory Analysis
 
-Exploratory data analysis can visualize relationships among variables, check distributional assumptions, and informally give some insight into the results that may be expected. Based on the data and statistical questions, the following figures are recommended:
+@fig-2 shows side-by-side boxplots of the proportion of total sales coming from zero-calorie drinks for each site for each day of the week. They showed a similar proportion for each site and day of the week across sites, though one of the sites differed slightly and seemed to have more variable sales. Boxplots of total drinks sold showed one site had a lot more sales than the other two sites. Sales were also much lower for all sites on weekends compared to weekdays
 
-1.  Side-by-side boxplots of zero-calorie or sugary drink sales by variables such as day of the week or site can help identify if there are differences in sales between different levels of the categorical variables.
+A plot of the proportion of total sales coming from zero-calorie drinks over experiment day (@fig-1), shows the trends of sales across each site over day. There was some difference at the beginning of the experiment, but over time the average proportion seemed relatively stable, which is not expected. A scatterplot matrix comparing sugary, zero-calorie and total drink sales showed that they are all highly correlated with each other. The matrix also shows a positive linear relationship between zero-calorie, sugary and total sales.
 
-2.  Plots of the proportion of total sugary and zero-calorie sales coming from zero-calorie drinks over counts, such as @fig-1, can be used to observe and identify the patterns over time. These plots can also be stratified by other variables, such as intervention to identify differences between groups.
-
-3.  A scatterplot of zero-calorie vs sugary drink sales can be used to investigate the kind of relationship they may have (eg. linear, positive) and to potentially identify if they are highly correlated.
-
-Additionally, a missing data table can summarize how many observations are missing for each variable. A missing data plot could be used to visualize the extent of the missing data.
+A missing data plot (@fig-3) showed that orange juice, 100% juice and sports drinks had many missing observations. A missing data table (@fig-4) also showed many missing juice or sport drink sales, additionally showing that some sites did not record some of these sales at all. Since juice and sport drink sales are not of interest, and are inconsistently recorded, they are not included in the analysis. The missing data plot also showed nine observations had no sale measurements, which are also omitted.
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: fig-1
-#| fig-cap: Proportion of total sugary and zero-calorie drink sales coming from zero-calorie drinks over time
-#| 
-library(here)
+#| fig-cap: Proportion of zero-calorie beverages sold per day
+
+library(here) 
+library(visdat)
+library(naniar)
 library(tidyverse)
+
 # Read in data
-sugary_bev <- read.csv(file = here("./rawdata/june1data.csv"),
-colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
-# Plot percentage of sugary or zero sugar sales accounted for by zero sugar drinks over the counts by site
-sugary_bev %>%
-mutate(percent_zero = ZeroCal/(ZeroCal+Sugary)) %>%
-ggplot(aes(x=Count,y=percent_zero,col=Site))+
-geom_point(alpha=0.5)+
-geom_smooth(se=F)+
-scale_fill_continuous(guide = guide_legend()) +
-theme(legend.position="bottom")+
-theme_minimal()+
-labs(x = "Day of the Experiment",
-     y = "Proportion of Total Zero-Calorie \nand Sugary Drink Sales")
+sugary_bev <- read.csv(file = "../rawdata/june1data.csv", 
+  colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
+
+# miss_plot <- vis_miss(sugary_bev)
+# 
+# miss_table <- sugary_bev %>%
+#   group_by(Site) %>%
+#   miss_var_summary() %>%
+#   arrange(desc(n_miss)) %>%
+#   head(n=12) %>%
+#   knitr::kable(col.names = c("Site","Type of Sale","Number Missing","Percentage Missing"))
+
+# Get rid of rows with total sales less than the drink sales summed and missing totals
+# sugary_bev$totals <-rowSums(sugary_bev[,5:9],na.rm = T)
+# sugary_bev =sugary_bev[!is.na(sugary_bev$Total),]
+# sugary_bev = sugary_bev[!(sugary_bev$Total<sugary_bev$totals),]
+
+sugary_bev_clean <- sugary_bev %>% 
+  rowwise() %>%
+  mutate(TotalSales = sum(across(c(5:9)), na.rm = TRUE)) %>%
+  drop_na(ZeroCal, Sugary, Total) %>%
+  filter(Total >= TotalSales)
+
+sugary_bev_clean %>%
+  mutate(percent_zero = ZeroCal/Total) %>%
+  ggplot(aes(x=Count,y=percent_zero,col=Site))+
+  geom_point(alpha=0.5)+
+  geom_smooth(se=F)+
+  scale_fill_continuous(guide = guide_legend()) +
+  theme(legend.position="bottom")+
+  theme_minimal()+
+  labs(x = "Day of the Experiment",
+       y = "Proportion of Total Sales") 
 ```
 
 # Formal Analysis
 
-In this study, an effective intervention will increase, relative to the baseline, the proportion of daily sales of zero-calorie beverages among sales that are either zero-calorie beverages or sugary beverages. This proportion increases when there are relatively more sales of zero-calorie beverages than of sugary beverages. This avoids the need to perform two separate analyses (one for zero-calorie and another one for sugary beverages) and any variation due to sales of other unrelated products.
+To answer the statistical questions, we formally assessed the relative effects of the interventions on the average daily proportion of both zero calorie and sugary beverage sales. The intervention groups had a statistically significant effect on the daily sales of both zero calorie and sugary beverage sales -- likelihood-ratio test (LRT) p \<0.0001 in both cases. The pairwise group comparisons for effect of interventions on the sales of zero-calorie beverages and sugared beverages are respectively shown in  @tbl-pairwise-zerocal and @tbl-pairwise-sugary.
 
-To answer the statistical questions, we recommend using a generalized linear mixed effects model (GLMM) with a Poisson distribution. This type of model uses count data and allows for different effects across sites. It can also handle the longitudinal nature of the data. The response variable is the counts of zero-calorie beverage sales. Including the log-transformed total sales of zero-calorie or sugary beverages as an offset, the Poisson GLMM models the proportion of zero-calorie beverage sales as defined previously. The main independent variables of interest are intervention indicators, treating the baseline periods as the reference. Other covariates in the model include the site, the day of the week, and the study day.
+In every case, the effects are represented as relative percentage changes, along with 95% confidence intervals for the effect size and Holm-adjusted p-values (Wald tests). Compared with the baseline periods, it is clear that the combined "discount and messaging" intervention was associated with an increase in the proportion of both zero-calorie and sugared beverage sales. The combined messaging strategy was also associated with an increase in the sales of zero-calorie beverages relative to other beverage options.
 
-To assess whether intervention effects differ by site, we recommend testing interaction effects between sites and intervention groups. This assessment can be implemented as a Likelihood Ratio Test. We recommend including random effects for intervention groups, which would allow for different effects between groups.
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+#| label: tbl-pairwise-zerocal
+#| tbl-cap: "Pairwise group comparisons on average proportion of zero calorie sales."
+readr::read_tsv(
+  here::here("output/formal_analysis/pairwise_comparisons_ZeroCal.tsv"),
+  show_col_types = FALSE
+) %>%
+  dplyr::mutate(
+    `Adjusted p-value` = stringr::str_remove(
+      `Adjusted p-value`, "p=|p<"
+    )
+  ) %>%
+  dplyr::rename(
+    `Relative change (95% CI)` := `Relative change`
+  ) %>%
+  dplyr::select(-`Unadjusted p-value`) %>%
+  kableExtra::kable() %>%
+  kableExtra::column_spec(1, width = "12em")
+```
 
-A major assumption of the GLMM with Poisson model is the correct specification of the Poisson distribution. To avoid this assumption, a robust version of the above model is recommended. In particular, the same model specification can be used, while employing Poisson estimating equations with a so-called sandwich covariance estimator. This model is known as robust Poisson as it remains valid even if the data do not support a Poisson distribution @Talbot2022. Once exponentiated, coefficients from the GLMM and the robust Poisson model have the same interpretation. For instance, if the exponentiated coefficient for a given intervention is equal to 1.5, then the proportion of zero-calorie beverage sales increases by 50% under the intervention, as compared to the baseline.
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
+#| label: tbl-pairwise-sugary
+#| tbl-cap: "Pairwise group comparisons on average proportion sugary sales."
+readr::read_tsv(
+  here::here("output/formal_analysis/pairwise_comparisons_Sugary.tsv"),
+  show_col_types = FALSE
+) %>%
+  dplyr::mutate(
+    `Adjusted p-value` = stringr::str_remove(
+      `Adjusted p-value`, "p=|p<"
+    )
+  ) %>%
+  dplyr::rename(
+    `Relative change (95% CI)` := `Relative change`
+  ) %>%
+  dplyr::select(-`Unadjusted p-value`) %>%
+  kableExtra::kable() %>%
+  kableExtra::column_spec(1, width = "12em")
+```
+
+Further, the intervention effects varied significantly across study sites, for both zero-calorie and sugary beverage sales (LRT p \<0.0001 in both cases). The variability in proportion of daily sales from each type of beverage can be visualized in @fig-adjusted-pred-zerocal and @fig-adjusted-pred-sugary.
+
+![Expected daily proportion of zero-calorie beverage sales across study sites and intervention groups.](../output/formal_analysis/adjusted_predictions_ZeroCal.png){#fig-adjusted-pred-zerocal width="600"}
+
+![Expected daily proportion of zero-calorie beverage sales across study sites and intervention groups.](../output/formal_analysis/adjusted_predictions_Sugary.png){#fig-adjusted-pred-sugary width="600"}
 
 # Conclusion
 
-To accurately assess the efficacy of the interventions, it is best to create a statistical model which explains how these interventions affect the proportion of zero-calorie beverages. This response variable is less prone to variation than the overall sales of zero-calorie drinks, and it still provides an easily-interpretable metric for consumer purchasing behaviours.
+To accurately assess the efficacy of the five interventions, it is best to utilize statistical models which can assess how these interventions are associated with the sales of zero-calorie beverages and sugared beverages.
 
-Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to predict the proportion of zero-calorie beverage sales, and determining which effects are most relevant using the likelihood ratio test. However, the Poisson GLMM assumes that the underlying data follows a Poisson distribution. If this assumption is not met, we recommend utilizing robust Poisson regression, as the robust Poisson model does not require this distributional assumption. Both analyses employ the zero-calorie beverage sales as the primary outcome with the log of the sum of zero-calorie beverage sales and sugary beverage sales as an offset.
+Therefore, we recommend fitting two Poisson GLMM models to respectively predict the daily sales of zero-calorie and sugared beverages, with each model incorporating an offset based on the total number of beverages sold on a given day. After creating these models, the relevant effects can be determined using the Likelihood Ratio Test. 
 
 {{< pagebreak >}}
 
@@ -101,4 +168,69 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 
 {{< pagebreak >}}
 
+```{=tex}
+\pagenumbering{gobble}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+```
+
 # Statistical Appendix
+
+## Boxplots
+
+The plots below depict the "market share" of zero-calorie beverage sales for each day of the week, stratified by hospital.
+
+```{r,echo=FALSE,out.width="75%",warning=FALSE,message=FALSE}
+#| label: fig-2
+#| fig-cap: Proportion of total sales coming from zero-calorie drinks by day
+  
+sugary_bev %>%
+  drop_na(c(ZeroCal, Sugary)) %>%
+  mutate(Day = case_when(DofW == "1" ~ "Monday",
+                         DofW == "2" ~ "Tuesday",
+                         DofW == "3" ~ "Wednesday",
+                         DofW == "4" ~ "Thursday",
+                         DofW == "5" ~ "Friday",
+                         DofW == "6" ~ "Saturday",
+                         DofW == "7" ~ "Sunday",
+                         .default = as.character(DofW))) %>%
+  mutate(Day = factor(Day, levels = c("Monday", "Tuesday", "Wednesday", 
+                                      "Thursday", "Friday", 
+                                      "Saturday", "Sunday"))) %>%
+  mutate(ZeroCalProp = ZeroCal/Total) %>%
+  ggplot(aes(x = forcats::fct_rev(Day), y = ZeroCalProp)) +
+  geom_boxplot(aes(col=Site)) +
+  theme_bw() +
+  labs(x = "Day of the Week", 
+       y = "Proportion of Total Sales \nComing From Zero Calorie Sales",
+       title = "Proportion of total sales\n coming from with zero calories drinks per day") +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ylim(0,1) +
+  coord_flip()
+```
+
+## Missing Data
+
+The plot below visualizes the number of missing observations per variable in the dataset. In addtion to the visualization below, a table of missing data is also provided which summarizes the total number and the percentage of missing observations for each variable across the three different sites. 
+
+```{r,echo=FALSE,out.width="75%"}
+#| label: fig-3
+#| fig-cap: Missing data by variable and observation
+miss_plot <- vis_miss(sugary_bev)
+miss_plot
+```
+
+```{r,echo=FALSE,out.width="50%"}
+#| label: fig-4
+#| fig-cap: Number and proportion of missing observations, grouped by site and by variable
+miss_table <- sugary_bev %>%
+  group_by(Site) %>%
+  miss_var_summary() %>%
+  arrange(desc(n_miss))
+
+miss_table %>%
+  mutate(pct_miss = paste0(formatC(pct_miss, 2, format = "f"), "%")) %>%
+  head(n = 12) %>%
+  knitr::kable(col.names = c("Site", "Type of Drink",
+                             "Number of Missing Observations", "Percentage Missing"))
+```
