@@ -54,8 +54,6 @@ Quantities of bottled zero-calorie and sugared beverages are missing in nine obs
 
 # Exploratory Analysis
 
-## Side-by-Side Boxplots
-
 Side-by-side boxplots of the proportion of total sales coming from zero-calorie drinks for each site for each day of the week were created. They showed a similar proportion for each site and day of the week across sites, though one of the sites differed slightly and seemed to have more variable sales. Boxplots of total drinks sold showed one site had a lot more sales than the other two sites. Sales were also much lower for all sites on weekends compared to weekdays
 
 ## Spaghetti Plots
@@ -76,20 +74,26 @@ A missing data plot showed that orange juice, 100% juice and sports drinks had m
 
 library(here)
 library(tidyverse)
+
 # Read in data
-sugary_bev <- read.csv(file = here("./rawdata/june1data.csv"),
-colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
-# Plot percentage of sugary or zero sugar sales accounted for by zero sugar drinks over the counts by site
+sugary_bev <- read.csv(file = "../rawdata/june1data.csv", 
+  colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
+
+# Get rid of rows with total sales less than the drink sales summed and missing totals
+sugary_bev$totals <-rowSums(sugary_bev[,5:9],na.rm = T)
+sugary_bev =sugary_bev[!is.na(sugary_bev$Total),]
+sugary_bev = sugary_bev[!(sugary_bev$Total<sugary_bev$totals),]
+
 sugary_bev %>%
-mutate(percent_zero = ZeroCal/(ZeroCal+Sugary)) %>%
-ggplot(aes(x=Count,y=percent_zero,col=Site))+
-geom_point(alpha=0.5)+
-geom_smooth(se=F)+
-scale_fill_continuous(guide = guide_legend()) +
-theme(legend.position="bottom")+
-theme_minimal()+
-labs(x = "Day of the Experiment",
-     y = "Proportion of Total Zero-Calorie \nand Sugary Drink Sales")
+  mutate(percent_zero = ZeroCal/Total) %>%
+  ggplot(aes(x=Count,y=percent_zero,col=Site))+
+  geom_point(alpha=0.5)+
+  geom_smooth(se=F)+
+  scale_fill_continuous(guide = guide_legend()) +
+  theme(legend.position="bottom")+
+  theme_minimal()+
+  labs(x = "Day of the Experiment",
+       y = "Proportion of Total Sales") 
 ```
 
 # Formal Analysis
@@ -119,4 +123,4 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 
 # Statistical Appendix
 
-## Exploratory Data Analysis
+
