@@ -50,11 +50,11 @@ Quantities of bottled zero-calorie and sugared beverages are missing in nine obs
 
 # Exploratory Analysis
 
-Side-by-side boxplots of the proportion of total sales coming from zero-calorie drinks for each site for each day of the week were created. They showed a similar proportion for each site and day of the week across sites, though one of the sites differed slightly and seemed to have more variable sales. Boxplots of total drinks sold showed one site had a lot more sales than the other two sites. Sales were also much lower for all sites on weekends compared to weekdays
+@fig-2 shows side-by-side boxplots of the proportion of total sales coming from zero-calorie drinks for each site for each day of the week. They showed a similar proportion for each site and day of the week across sites, though one of the sites differed slightly and seemed to have more variable sales. Boxplots of total drinks sold showed one site had a lot more sales than the other two sites. Sales were also much lower for all sites on weekends compared to weekdays
 
 A plot of the proportion of total sales coming from zero-calorie drinks over experiment day (@fig-1), shows the trends of sales across each site over day. There was some difference at the beginning of the experiment, but over time the average proportion seemed relatively stable, which is not expected. A scatterplot matrix comparing sugary, zero-calorie and total drink sales showed that they are all highly correlated with each other. The matrix also shows a positive linear relationship between zero-calorie, sugary and total sales.
 
-A missing data plot (@fig-2) showed that orange juice, 100% juice and sports drinks had many missing observations. A missing data table (@fig-3) also showed many missing juice or sport drink sales, additionally showing that some sites did not record some of these sales at all. Since juice and sport drink sales are not of interest, and are inconsistently recorded, they are not included in the analysis. The missing data plot also showed nine observations had no sale measurements, which are also omitted.
+A missing data plot (@fig-3) showed that orange juice, 100% juice and sports drinks had many missing observations. A missing data table (@fig-4) also showed many missing juice or sport drink sales, additionally showing that some sites did not record some of these sales at all. Since juice and sport drink sales are not of interest, and are inconsistently recorded, they are not included in the analysis. The missing data plot also showed nine observations had no sale measurements, which are also omitted.
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: fig-1
@@ -103,7 +103,7 @@ sugary_bev_clean %>%
 
 # Formal Analysis
 
-To answer the statistical questions, we formally assessed the relative effects of the interventions on the average daily proportion of both zero calorie and sugary bevarage sales. The intervention groups had a statistically significant effect on the daily sales of both zero calorie and sugary bevarage sales -- likelihood-ratio test (LRT) p <0.0001 in both cases. @tbl-pairwise-zerocal shows the pairwise group comparisons for zero calorie sales. The same comparisons for sugary bevarage sales are shown in @tbl-pairwise-sugary. In all cases, relative effects are represented as relative percentage changes alongsie 95% confidence intervals (CI) and Holm-adjusted p-values (Wald tests). Compared with the baseline periods, it is clear that the combined ``Discount and messaging'' intervention was associated with an increase in the proportion of both zero calorie and sugary bevarage sales. The combined messaging strategy was also associated with an increase zero calorie beverage sales.
+To answer the statistical questions, we formally assessed the relative effects of the interventions on the average daily proportion of both zero calorie and sugary bevarage sales. The intervention groups had a statistically significant effect on the daily sales of both zero calorie and sugary bevarage sales -- likelihood-ratio test (LRT) p \<0.0001 in both cases. @tbl-pairwise-zerocal shows the pairwise group comparisons for zero calorie sales. The same comparisons for sugary bevarage sales are shown in @tbl-pairwise-sugary. In all cases, relative effects are represented as relative percentage changes alongsie 95% confidence intervals (CI) and Holm-adjusted p-values (Wald tests). Compared with the baseline periods, it is clear that the combined \`\`Discount and messaging'' intervention was associated with an increase in the proportion of both zero calorie and sugary bevarage sales. The combined messaging strategy was also associated with an increase zero calorie beverage sales.
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: tbl-pairwise-zerocal
@@ -125,7 +125,6 @@ readr::read_tsv(
   kableExtra::column_spec(1, width = "12em")
 ```
 
-
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: tbl-pairwise-sugary
 #| tbl-cap: "Pairwise group comparisons on average proportion sugary sales."
@@ -146,12 +145,11 @@ readr::read_tsv(
   kableExtra::column_spec(1, width = "12em")
 ```
 
+Further, the intervention effects varied significantly across study sites, for both zero-calorie and sugary beverage sales (LRT p \<0.0001 in both cases). The variability in proportion of daily sales from each type of beverage can be visualized in @fig-adjusted-pred-zerocal and @fig-adjusted-pred-sugary.
 
-Further, the intervention effects varied significantly across study sites, for both zero-calorie and sugary beverage sales (LRT p <0.0001 in both cases). The variability in proportion of daily sales from each type of beverage can be visualized in @fig-adjusted-pred-zerocal and @fig-adjusted-pred-sugary.
+![Expected daily proportion of zero-calorie beverage sales across study sites and intervention groups.](../output/formal_analysis/adjusted_predictions_ZeroCal.png){#fig-adjusted-pred-zerocal width="600"}
 
-![Expected daily proportion of zero-calorie beverage sales across study sites and intervention groups.](../output/formal_analysis/adjusted_predictions_ZeroCal.png){#fig-adjusted-pred-zerocal width=600}
-
-![Expected daily proportion of zero-calorie beverage sales across study sites and intervention groups.](../output/formal_analysis/adjusted_predictions_Sugary.png){#fig-adjusted-pred-sugary width=600}
+![Expected daily proportion of zero-calorie beverage sales across study sites and intervention groups.](../output/formal_analysis/adjusted_predictions_Sugary.png){#fig-adjusted-pred-sugary width="600"}
 
 # Conclusion
 
@@ -170,18 +168,49 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 
 # Statistical Appendix
 
-## Missing Data 
+## Boxplots
+Below is a boxplot of the proportion of total sales coming from zero-calorie drinks by day of the week
+```{r,echo=FALSE,out.width="75%"}
+#| label: fig-2
+#| fig-cap: Proportion of total sales coming from zero-calorie drinks by day
+  
+sugary_bev %>%
+  drop_na(c(ZeroCal, Sugary)) %>%
+  mutate(Day = case_when(DofW == "1" ~ "Monday",
+                         DofW == "2" ~ "Tuesday",
+                         DofW == "3" ~ "Wednesday",
+                         DofW == "4" ~ "Thursday",
+                         DofW == "5" ~ "Friday",
+                         DofW == "6" ~ "Saturday",
+                         DofW == "7" ~ "Sunday",
+                         .default = as.character(DofW))) %>%
+  mutate(Day = factor(Day, levels = c("Monday", "Tuesday", "Wednesday", 
+                                      "Thursday", "Friday", 
+                                      "Saturday", "Sunday"))) %>%
+  mutate(ZeroCalProp = ZeroCal/Total) %>%
+  ggplot(aes(x = forcats::fct_rev(Day), y = ZeroCalProp)) +
+  geom_boxplot(aes(col=Site)) +
+  theme_bw() +
+  labs(x = "Day of the Week", 
+       y = "Proportion of Total Sales \nComing From Zero Calorie Sales",
+       title = "Proportion of total sales\n coming from with zero calories drinks per day") +
+  theme(plot.title = element_text(hjust = 0.5)) + 
+  ylim(0,1) +
+  coord_flip()
+```
+## Missing Data
 
 Below is the plot summarizing which observations have missing data and in which variables. A missing data table is also given, summarizing the number and percentage of missing observations for variables across sites. Site and variable combinations with no missing data points are ommited from the table
 
 ```{r,echo=FALSE,out.width="75%"}
-#| label: fig-2
+#| label: fig-3
 #| fig-cap: Missing data by variable and observation
 miss_plot <- vis_miss(sugary_bev)
 miss_plot
 ```
+
 ```{r,echo=FALSE,out.width="50%"}
-#| label: fig-3
+#| label: fig-4
 #| fig-cap: Number and proportion of missing observations, grouped by site and by variable
 miss_table <- sugary_bev %>%
   group_by(Site) %>%

@@ -75,7 +75,7 @@ sugary_bev %>%
   theme_bw() +
   labs(x = "Day of the Week", 
        y = "Proportion of Total Sales \nComing From Zero Calorie Sales",
-       title = "Proportion of total bottled beverage\n sales with zero calories per day") +
+       title = "Proportion of total sales\n coming from with zero calories drinks per day") +
   theme(plot.title = element_text(hjust = 0.5)) + 
   ylim(0,1) +
   coord_flip()
