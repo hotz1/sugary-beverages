@@ -4,6 +4,8 @@ title:
 format: 
   pdf:
     fontsize: 11pt
+    cite-method: biblatex
+    citecolor: Cerulean
 date:
   2024-03-29
 editor: 
@@ -12,10 +14,14 @@ bibliography:
   ../docs/references.bib
 csl: 
   ../docs/elsevier-vancouver.csl
+biblatexoptions: 
+  - backend=biber
+  - style=numeric
+  - sorting=nty
 author: 
-- Christine Chuong (20124798)
-- Giuliano Cruz (79247979)
-- Joey Hotz (18461400)
+  - Christine Chuong (20124798)
+  - Giuliano Cruz (79247979)
+  - Joey Hotz (18461400)
 include-in-header: 
   text: |
     \usepackage{authblk}
@@ -28,7 +34,7 @@ include-in-header:
 
 # Introduction
 
-Strong evidence has linked habitual intake of sugar-sweetened beverages (SSBs) with weight gain and a higher risk of type 2 diabetes mellitus, cardiovascular diseases, and even cancer @Malik2022. Multiple policy interventions to inhibit consumption of SSBs have been proposed @Krieger2021, including taxation of SSBs, limiting access to SSBs in schools and healthcare facilities, and adding informative package labelling. As policymakers create potential interventions to limit SSB consumption, there is a need for data-driven methods of determining their efficacy.
+Strong evidence has linked habitual intake of sugar-sweetened beverages (SSBs) with weight gain and a higher risk of type 2 diabetes mellitus, cardiovascular diseases, and even cancer [@Malik2022]. Multiple policy interventions to inhibit consumption of SSBs have been proposed [@Krieger2021], including taxation of SSBs, limiting access to SSBs in schools and healthcare facilities, and adding informative package labelling. As policymakers create potential interventions to limit SSB consumption, there is a need for data-driven methods of determining their efficacy.
 
 This study aims to evaluate two groups of interventions which intend to shift consumers towards purchasing zero-calorie beverages instead of SSBs. Five separate interventions implemented at three hospitals are assessed. Three of these interventions utilize calorie-related messaging and the other two use price discounts to incentivize purchasing zero-calorie beverages.
 
@@ -94,7 +100,7 @@ To answer the statistical questions, we recommend using a generalized linear mix
 
 To assess whether intervention effects differ by site, we recommend testing interaction effects between sites and intervention groups. This assessment can be implemented as a Likelihood Ratio Test. We recommend including random effects for intervention groups, which would allow for different effects between groups.
 
-A major assumption of the GLMM with Poisson model is the correct specification of the Poisson distribution. To avoid this assumption, a robust version of the above model is recommended. In particular, the same model specification can be used, while employing Poisson estimating equations with a so-called sandwich covariance estimator. This model is known as robust Poisson as it remains valid even if the data do not support a Poisson distribution @Talbot2022. Once exponentiated, coefficients from the GLMM and the robust Poisson model have the same interpretation. For instance, if the exponentiated coefficient for a given intervention is equal to 1.5, then the proportion of zero-calorie beverage sales increases by 50% under the intervention, as compared to the baseline.
+A major assumption of the GLMM with Poisson model is the correct specification of the Poisson distribution. To avoid this assumption, a robust version of the above model is recommended. In particular, the same model specification can be used, while employing Poisson estimating equations with a so-called sandwich covariance estimator. This model is known as robust Poisson as it remains valid even if the data do not support a Poisson distribution [@Talbot2022]. Once exponentiated, coefficients from the GLMM and the robust Poisson model have the same interpretation. For instance, if the exponentiated coefficient for a given intervention is equal to 1.5, then the proportion of zero-calorie beverage sales increases by 50% under the intervention, as compared to the baseline.
 
 # Conclusion
 
