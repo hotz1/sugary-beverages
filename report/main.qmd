@@ -5,7 +5,7 @@ format:
   pdf:
     fontsize: 11pt
 date:
-  2024-03-01
+  2024-03-29
 editor: 
   visual
 bibliography: 
@@ -30,9 +30,9 @@ include-in-header:
 
 Strong evidence has linked habitual intake of sugar-sweetened beverages (SSBs) with weight gain and a higher risk of type 2 diabetes mellitus, cardiovascular diseases, and even cancer @Malik2022. Multiple policy interventions to inhibit consumption of SSBs have been proposed @Krieger2021, including taxation of SSBs, limiting access to SSBs in schools and healthcare facilities, and adding informative package labelling. As policymakers create potential interventions to limit SSB consumption, there is a need for data-driven methods of determining their efficacy.
 
-This study aims to evaluate two kinds of interventions which intend to shift consumers towards zero-calorie beverages: interventions with caloric messaging or price discounts. There are three caloric messaging interventions and two price discount interventions.
+This study aims to evaluate two forms of interventions which intend to shift consumers towards purchasing zero-calorie beverages instead of SSBs. This study assesses five separate interventions: three interventions which utilize calorie-related messaging and two involving discounts on zero-calorie beverages. 
 
-The primary statistical question is whether these interventions are associated with differences in the average proportion of daily sales of zero-calorie beverages. Secondary questions include whether there are significant interactions between interventions and site effects, and whether a combination of interventions are more effective than each individual intervention.
+The primary statistical question is whether these interventions are associated with differences in the average daily proportion of zero-calorie beverage and SSB sales. Additional questions of interest include whether the interventions are equally effective at each site, and whether the effect of multiple simultaneous interventions is greater than the "sum of its parts". 
 
 # Data Description and Summaries
 
@@ -60,7 +60,7 @@ A missing data plot showed that orange juice, 100% juice and sports drinks had m
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: fig-1
 #| fig-cap: Proportion of total sugary and zero-calorie drink sales coming from zero-calorie drinks over time
-#| 
+
 library(here)
 library(tidyverse)
 # Read in data
