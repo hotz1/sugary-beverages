@@ -44,11 +44,7 @@ The primary statistical question is whether these interventions are associated w
 
 The data come from an interrupted time-series multi-site quasi-experimental study on sales of sweetened and zero-calorie beverages at three United States hospitals over a 30-week period. The data consists of 631 observations aggregated across the three sites. Each observation represents the daily sales of bottled beverages among multiple storefronts per site. Sales are automatically recorded by point of sale terminals in one site, and manually by store employees at remaining sites. Beverage sales are recorded every day from the beginning of the experiment until the final day, including weekends and holidays.
 
-The data includes the following variables: the day of the experiment, the corresponding weekday, the site, and the ongoing intervention. The day variable is a positive integer. The latter three are categorical variables which respectively have seven, three, and nine levels.
-
-The data additionally contains the daily sales of bottled zero-calorie and sweetened beverages sold per site, and the total daily quantity of beverages sold per hospital. These are all non-negative integer values.
-
-Some observations also include the daily sales of 100% juice, orange juice, and sports drinks, which are also non-negative integer values. These quantities are only consistently recorded at *CHOP* and hardly recorded at the other hospitals.
+The data includes the following variables: the day of the experiment, the corresponding weekday, the site, and the ongoing intervention. The day variable is a positive integer. The latter three are categorical variables which respectively have seven, three, and nine levels. The data also contains the daily sales of bottled zero-calorie and sweetened beverages sold per site, and the total daily quantity of beverages sold per hospital. These are all non-negative integer values.Some observations also include the daily sales of 100% juice, orange juice, and sports drinks, which are also non-negative integer values. These quantities are only consistently recorded at *CHOP* and hardly recorded at the other hospitals.
 
 Quantities of bottled zero-calorie and sugared beverages are missing in nine observations, each containing missing data for every sales-related column. Of these nine observations, seven occur in the final week of the study at *HF*, and two occur mid-study at *NS*. One mid-study observation from *HF* does not report the total quantity of beverages sold, though the quantity of bottled zero-calorie and sugared beverage sales are provided.
 
@@ -56,28 +52,31 @@ Quantities of bottled zero-calorie and sugared beverages are missing in nine obs
 
 Side-by-side boxplots of the proportion of total sales coming from zero-calorie drinks for each site for each day of the week were created. They showed a similar proportion for each site and day of the week across sites, though one of the sites differed slightly and seemed to have more variable sales. Boxplots of total drinks sold showed one site had a lot more sales than the other two sites. Sales were also much lower for all sites on weekends compared to weekdays
 
-## Spaghetti Plots
+A plot of the proportion of total sales coming from zero-calorie drinks over experiment day (@fig-1), shows the trends of sales across each site over day. There was some difference at the beginning of the experiment, but over time the average proportion seemed relatively stable, which is not expected. A scatterplot matrix comparing sugary, zero-calorie and total drink sales showed that they are all highly correlated with each other. The matrix also shows a positive linear relationship between zero-calorie, sugary and total sales.
 
-A plot of the proportion of total sugary and zero-calorie sales coming from zero-calorie drinks over counts (@fig-1), shows the trends of sales across each site over day. Surprisingly, two of the sites seem to have a downward trend, so the proportion of sales coming from zero calorie drinks is decreasing. This is not the expected trend, and will have to be formally tested.
-
-## Scatterplot Matrix
-
-A scatterplot matrix comparing sugary, zero-calorie and total drink sales showed that they are all highly correlated with each other. The matrix also shows a positive linear relationship between zero-calorie, sugary and total sales, so for each pair, as sales of one type increase, the other tends to increase as well.
-
-## Missing Data Plot
-
-A missing data plot showed that orange juice, 100% juice and sports drinks had many missing observations. A missing data table also showed this, additionally showing that some sites did not report some of these sales at all.
+A missing data plot (@fig-2) showed that orange juice, 100% juice and sports drinks had many missing observations. A missing data table (@fig-3) also showed many missing juice or sport drink sales, additionally showing that some sites did not record some of these sales at all. Since juice and sport drink sales are not of interest, and are inconsistently recorded, they are not included in the analysis. The missing data plot also showed nine observations had no sale measurements, which are also omitted.
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: fig-1
 #| fig-cap: Proportion of total sugary and zero-calorie drink sales coming from zero-calorie drinks over time
 
-library(here)
+library(here) 
+library(visdat)
+library(naniar)
 library(tidyverse)
 
 # Read in data
 sugary_bev <- read.csv(file = "../rawdata/june1data.csv", 
   colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
+
+miss_plot <- vis_miss(sugary_bev) 
+
+miss_table <- sugary_bev %>% 
+  group_by(Site) %>% 
+  miss_var_summary() %>% 
+  arrange(desc(n_miss)) %>% 
+  head(n=12) %>% 
+  knitr::kable(col.names = c("Site","Type of Sale","Number Missing","Percentage Missing")) 
 
 # Get rid of rows with total sales less than the drink sales summed and missing totals
 sugary_bev$totals <-rowSums(sugary_bev[,5:9],na.rm = T)
@@ -123,4 +122,18 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 
 # Statistical Appendix
 
+## Missing Data 
 
+Below is the plot summarizing which observations have missing data and in which variables. A missing data table is also given, summarizing the number and percentage of missing observations for variables across sites. Site and variable combinations with no missing data points are ommited from the table
+
+```{r,echo=FALSE,out.width="60%"}
+#| label: fig-2
+#| fig-cap: Missing data by variable and observation
+miss_plot
+```
+
+```{r,echo=FALSE,out.width="50%"}
+#| label: fig-3
+#| fig-cap: Number of missing observations and percentage missing by variable
+miss_table
+```
