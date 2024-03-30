@@ -41,3 +41,6 @@ vignettes/*.pdf
 # quarto/latex styling files, compiled files, etc
 README_files/
 README.html
+
+# random mac files
+.DS_Store
