@@ -72,12 +72,23 @@ A missing data plot showed that orange juice, 100% juice and sports drinks had m
 #| label: fig-1
 #| fig-cap: Proportion of total sugary and zero-calorie drink sales coming from zero-calorie drinks over time
 
-library(here)
+library(here) 
+library(visdat)
+library(naniar)
 library(tidyverse)
 
 # Read in data
 sugary_bev <- read.csv(file = "../rawdata/june1data.csv", 
   colClasses = c("DofW" = "factor", "Site" = "factor", "Intervention" = "factor"))
+
+miss_plot <- vis_miss(sugary_bev) 
+
+miss_table <- sugary_bev %>% 
+  group_by(Site) %>% 
+  miss_var_summary() %>% 
+  arrange(desc(n_miss)) %>% 
+  head(n=12) %>% 
+  knitr::kable(col.names = c("Site","Type of Sale","Number Missing","Percentage Missing")) 
 
 # Get rid of rows with total sales less than the drink sales summed and missing totals
 sugary_bev$totals <-rowSums(sugary_bev[,5:9],na.rm = T)
@@ -123,4 +134,15 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 
 # Statistical Appendix
 
-
+## Missing Data Plot and Table
+```{r,echo=FALSE,out.width="60%"}
+#| label: fig-2
+#| fig-cap: Missing data by variable and observation
+miss_plot
+```
+  
+```{r,echo=FALSE,out.width="50%"}
+#| label: fig-3
+#| fig-cap: Number of missing observations and percentage missing by variable
+miss_table
+```

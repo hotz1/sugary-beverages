@@ -16,7 +16,9 @@ ggsave("./fig/missing_data_plot.png",plot=miss_dat)
 miss_table <- sugary_bev %>% 
   group_by(Site) %>% 
   miss_var_summary() %>% 
-  arrange(desc(n_miss))
+  arrange(desc(n_miss)) %>% 
+  head(n=12) %>% 
+  knitr::kable(col.names = c("Site","Type of Sale","Number Missing","Percentage Missing")) 
 
 # Get rid of rows with total sales less than the drink sales summed and missing totals
 sugary_bev$totals <-rowSums(sugary_bev[,5:9],na.rm = T)
