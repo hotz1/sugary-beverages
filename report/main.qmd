@@ -58,7 +58,7 @@ Side-by-side boxplots of the proportion of total sales coming from zero-calorie 
 
 A plot of the proportion of total sales coming from zero-calorie drinks over experiment day (@fig-1), shows the trends of sales across each site over day. There was some difference at the beginning of the experiment, but over time the average proportion seemed relatively stable, which is not expected. A scatterplot matrix comparing sugary, zero-calorie and total drink sales showed that they are all highly correlated with each other. The matrix also shows a positive linear relationship between zero-calorie, sugary and total sales.
 
-A missing data plot showed that orange juice, 100% juice and sports drinks had many missing observations. A missing data table also showed many missing juice or sport drink sales, additionally showing that some sites did not record some of these sales at all. Since juice and sport drink sales are not of interest, and are inconsistently recorded, they are not included in the analysis. The missing data plot also showed nine observations had no sale measurements, which are also omitted. 
+A missing data plot (@fig-2) showed that orange juice, 100% juice and sports drinks had many missing observations. A missing data table (@fig-3) also showed many missing juice or sport drink sales, additionally showing that some sites did not record some of these sales at all. Since juice and sport drink sales are not of interest, and are inconsistently recorded, they are not included in the analysis. The missing data plot also showed nine observations had no sale measurements, which are also omitted.
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: fig-1
@@ -126,7 +126,7 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 
 # Statistical Appendix
 
-## Missing Data Plot and Table
+## Missing Data 
 
 ```{r,echo=FALSE,out.width="60%"}
 #| label: fig-2
