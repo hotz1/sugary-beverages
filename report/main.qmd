@@ -153,9 +153,9 @@ Further, the intervention effects varied significantly across study sites, for b
 
 # Conclusion
 
-To accurately assess the efficacy of the interventions, it is best to create a statistical model which explains how these interventions affect the proportion of zero-calorie beverages. This response variable is less prone to variation than the overall sales of zero-calorie drinks, and it still provides an easily-interpretable metric for consumer purchasing behaviours.
+To accurately assess the efficacy of the five interventions, it is best to utilize statistical models which can assess how these interventions are associated with the sales of zero-calorie beverages and sugared beverages.
 
-Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to predict the proportion of zero-calorie beverage sales, and determining which effects are most relevant using the likelihood ratio test. However, the Poisson GLMM assumes that the underlying data follows a Poisson distribution. If this assumption is not met, we recommend utilizing robust Poisson regression, as the robust Poisson model does not require this distributional assumption. Both analyses employ the zero-calorie beverage sales as the primary outcome with the log of the sum of zero-calorie beverage sales and sugary beverage sales as an offset.
+Therefore, we recommend fitting two Poisson GLMM models to respectively predict the daily sales of zero-calorie and sugared beverages, with each model incorporating an offset based on the total number of beverages sold on a given day. After creating these models, the relevant effects can be determined using the Likelihood Ratio Test. 
 
 {{< pagebreak >}}
 
@@ -165,6 +165,12 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 :::
 
 {{< pagebreak >}}
+
+```{=tex}
+\pagenumbering{gobble}
+\setcounter{figure}{0}
+\renewcommand{\thefigure}{A\arabic{figure}}
+```
 
 # Statistical Appendix
 
