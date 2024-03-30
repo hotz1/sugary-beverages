@@ -98,12 +98,26 @@ sugary_bev %>%
 
 # Formal Analysis
 
-To answer the statistical questions, we formally assessed the relative effects of the interventions on the average daily proportion of both zero calorie and sugary bevarage sales. The intervention groups had a statistically significant effect on the daily sales of both zero calorie and sugary bevarage sales -- likelihood-ratio test (LRT) p <0.0001 in both cases. Table (N) and Figure (N) show the pairwise group comparisons for zer calorie sales. The same comparisons for sugary bevarage sales are shown in Table (N2) and Figure (N2).
+To answer the statistical questions, we formally assessed the relative effects of the interventions on the average daily proportion of both zero calorie and sugary bevarage sales. The intervention groups had a statistically significant effect on the daily sales of both zero calorie and sugary bevarage sales -- likelihood-ratio test (LRT) p <0.0001 in both cases. @tbl-pairwise-zerocal and Figure (N) show the pairwise group comparisons for zero calorie sales. The same comparisons for sugary bevarage sales are shown in Table (N2) and Figure (N2). In all cases, relative effects are represented as relative percentage changes.
 
-```{r}
+```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: tbl-pairwise-zerocal
-readr::read_tsv(here::here("output/formal_analysis/pairwise_comparisons_ZeroCal.tsv")) %>%
-  kableExtra::kable()
+#| tbl-cap: "Pairwise group comparisons on average zero calorie sales."
+readr::read_tsv(
+  here::here("output/formal_analysis/pairwise_comparisons_ZeroCal.tsv"),
+  show_col_types = FALSE
+) %>%
+  dplyr::mutate(
+    `Adjusted p-value` = stringr::str_remove(
+      `Adjusted p-value`, "p=|p<"
+    )
+  ) %>%
+  dplyr::rename(
+    `Relative change (95% CI)` := `Relative change`
+  ) %>%
+  dplyr::select(-`Unadjusted p-value`) %>%
+  kableExtra::kable() %>%
+  kableExtra::column_spec(1, width = "10em")
 ```
 
 
