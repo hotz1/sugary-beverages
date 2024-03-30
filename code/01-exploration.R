@@ -11,12 +11,14 @@ sugary_bev <- read.csv(file = "./rawdata/june1data.csv",
 
 # Check for missing data
 miss_dat <- vis_miss(sugary_bev)
-ggsave("./fig/missing_data_plot.png",plot=miss_dat)
+ggsave("./output/eda/missing_data_plot.png",plot=miss_dat)
 
 miss_table <- sugary_bev %>% 
   group_by(Site) %>% 
   miss_var_summary() %>% 
-  arrange(desc(n_miss))
+  arrange(desc(n_miss)) %>% 
+  head(n=12) %>% 
+  knitr::kable(col.names = c("Site","Type of Sale","Number Missing","Percentage Missing")) 
 
 # Get rid of rows with total sales less than the drink sales summed and missing totals
 sugary_bev$totals <-rowSums(sugary_bev[,5:9],na.rm = T)
@@ -50,7 +52,7 @@ sugary_bev %>%
   theme(plot.title = element_text(hjust = 0.5)) + 
   coord_flip()
 
-ggsave("./fig/total_by_week.png",plot=tot_by_week)
+ggsave("./output/eda/total_by_week.png",plot=tot_by_week)
 
 # Plot the proportion of zero cal bottles to total bottles by day of the week
 zero_by_week <-
@@ -78,7 +80,7 @@ sugary_bev %>%
   ylim(0,1) +
   coord_flip()
 
-ggsave("./fig/zero_by_week.png",plot=zero_by_week)
+ggsave("./output/eda/zero_by_week.png",plot=zero_by_week)
 
 # Plots of (total) drink sales per day by site split by weekday/weekend
 sugary_bev %>%
@@ -118,7 +120,7 @@ sugary_bev %>%
   theme(plot.title = element_text(hjust = 0.5),
         strip.background = element_rect(fill = "#B2ABD240"))
   
-ggsave("./fig/tot_week_site.png",plot=tot_week_site)
+ggsave("./output/eda/tot_week_site.png",plot=tot_week_site)
 
 # See if sales differ by site
 
@@ -136,7 +138,7 @@ sugary_bev %>%
   labs(x = "Day of the Experiment",
        y = "Proportion of Total Sales")
 
-ggsave("./fig/zero_by_day.png",plot=zero_by_day)
+ggsave("./output/eda/zero_by_day.png",plot=zero_by_day)
 
 # Plot percentage of sugary sales accounted for by zero sugar drinks over the counts by site
 sugary_by_day<-
@@ -151,7 +153,7 @@ sugary_bev %>%
   labs(x = "Day of the Experiment",
        y = "Proportion of Total Sales")
 
-ggsave("./fig/sugary_by_day.png",plot=sugary_by_day)
+ggsave("./output/eda/sugary_by_day.png",plot=sugary_by_day)
 
 # See if compute mean proportion of sales by days of the week
 sugary_bev %>%  
@@ -185,5 +187,5 @@ zero_sugar_total_sales <-
 ggpairs(sugary_bev,columns=c(5,6,10),aes(col=Site,alpha=0.5))+
   scale_fill_viridis(discrete = TRUE,aesthetics = c("fill","col"))
 
-ggsave("./fig/zero_sugar_total_sales.png",plot=zero_sugar_total_sales)
+ggsave("./output/eda/zero_sugar_total_sales.png",plot=zero_sugar_total_sales)
 
