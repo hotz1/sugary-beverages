@@ -170,7 +170,7 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 
 ## Boxplots
 Below is a boxplot of the proportion of total sales coming from zero-calorie drinks by day of the week
-```{r,echo=FALSE,out.width="75%"}
+```{r,echo=FALSE,out.width="75%",warning=FALSE,message=FALSE}
 #| label: fig-2
 #| fig-cap: Proportion of total sales coming from zero-calorie drinks by day
   
