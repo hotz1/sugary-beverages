@@ -103,7 +103,9 @@ sugary_bev_clean %>%
 
 # Formal Analysis
 
-To answer the statistical questions, we formally assessed the relative effects of the interventions on the average daily proportion of both zero calorie and sugary bevarage sales. The intervention groups had a statistically significant effect on the daily sales of both zero calorie and sugary bevarage sales -- likelihood-ratio test (LRT) p \<0.0001 in both cases. @tbl-pairwise-zerocal shows the pairwise group comparisons for zero calorie sales. The same comparisons for sugary bevarage sales are shown in @tbl-pairwise-sugary. In all cases, relative effects are represented as relative percentage changes alongsie 95% confidence intervals (CI) and Holm-adjusted p-values (Wald tests). Compared with the baseline periods, it is clear that the combined \`\`Discount and messaging'' intervention was associated with an increase in the proportion of both zero calorie and sugary bevarage sales. The combined messaging strategy was also associated with an increase zero calorie beverage sales.
+To answer the statistical questions, we formally assessed the relative effects of the interventions on the average daily proportion of both zero calorie and sugary beverage sales. The intervention groups had a statistically significant effect on the daily sales of both zero calorie and sugary beverage sales -- likelihood-ratio test (LRT) p \<0.0001 in both cases. The pairwise group comparisons for effect of interventions on the sales of zero-calorie beverages and sugared beverages are respectively shown in  @tbl-pairwise-zerocal and @tbl-pairwise-sugary.
+
+In every case, the effects are represented as relative percentage changes, along with 95% confidence intervals for the effect size and Holm-adjusted p-values (Wald tests). Compared with the baseline periods, it is clear that the combined \`\`Discount and messaging'' intervention was associated with an increase in the proportion of both zero-calorie and sugared beverage sales. The combined messaging strategy was also associated with an increase in the sales of zero-calorie beverages relative to other beverage options.
 
 ```{r,echo=FALSE,message=FALSE,warning=FALSE}
 #| label: tbl-pairwise-zerocal
@@ -175,7 +177,9 @@ Therefore, we recommend fitting two Poisson GLMM models to respectively predict 
 # Statistical Appendix
 
 ## Boxplots
+
 Below is a boxplot of the proportion of total sales coming from zero-calorie drinks by day of the week
+
 ```{r,echo=FALSE,out.width="75%",warning=FALSE,message=FALSE}
 #| label: fig-2
 #| fig-cap: Proportion of total sales coming from zero-calorie drinks by day
