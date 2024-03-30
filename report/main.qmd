@@ -124,6 +124,8 @@ Therefore, we recommend fitting a Poisson GLMM to the log-transformed sales to p
 
 ## Missing Data 
 
+Below is the plot summarizing which observations have missing data and in which variables. A missing data table is also given, summarizing the number and percentage of missing observations for variables across sites. Site and variable combinations with no missing data points are ommited from the table
+
 ```{r,echo=FALSE,out.width="60%"}
 #| label: fig-2
 #| fig-cap: Missing data by variable and observation
