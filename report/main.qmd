@@ -234,3 +234,13 @@ miss_table %>%
   knitr::kable(col.names = c("Site", "Type of Drink",
                              "Number of Missing Observations", "Percentage Missing"))
 ```
+
+{{< pagebreak >}}
+
+# Contributions
+
+The following are each group member's contributions to the second version of the assignment.
+
+- **Christine Chuong**: Edited content based on Estella's feedback and the peer reviews. Created most of the EDA plots and rewrote the EDA section to explain these plots.
+- **Giuliano Cruz**: Model fitting and wrote the formal analysis section. Wrote the initial conclusion (although it got heavily changed after) and created the tables of results for the model summaries.
+- **Joey Hotz**: Wrote (and rewrote) the data description sections and the conclusion. Additionally helped with rewriting other areas of the report to ensure that everything made logical sense and was easy for a hypothetical client to follow.
